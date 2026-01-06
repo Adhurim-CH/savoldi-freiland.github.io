@@ -6,7 +6,7 @@
   <title>Savoldi Shop</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen">
 
   <!-- Header -->
   <header class="bg-white shadow-md p-4 flex flex-col sm:flex-row justify-between items-center sticky top-0 z-50">
@@ -37,7 +37,7 @@
   </div>
 
   <!-- Main Pages -->
-  <main class="p-6 space-y-12">
+  <main class="p-6 space-y-12 flex-1">
 
     <!-- Home -->
     <div id="home-page">
@@ -94,6 +94,34 @@
     </div>
 
   </main>
+
+  <!-- Footer -->
+  <footer class="bg-blue-900 text-white mt-auto p-6">
+    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
+      <!-- Firmeninfo -->
+      <div>
+        <h3 class="font-semibold text-lg mb-2">Savoldi Freiland</h3>
+        <p>Frische Freilandeier aus Othmarsingen</p>
+      </div>
+
+      <!-- Kontakt -->
+      <div>
+        <h3 class="font-semibold text-lg mb-2">Kontakt</h3>
+        <p>Othmarsingen, Schweiz</p>
+        <p><a href="mailto:info@savoldi-freiland.ch" class="underline hover:text-green-400">info@savoldi-freiland.ch</a></p>
+      </div>
+
+      <!-- Öffnungszeiten -->
+      <div>
+        <h3 class="font-semibold text-lg mb-2">Öffnungszeiten</h3>
+        <p>Mo - Fr: 8:00 - 18:00</p>
+        <p>Sa: 8:00 - 14:00</p>
+      </div>
+    </div>
+    <div class="text-center text-xs mt-6">
+      © 2026 Savoldi Freiland. Alle Rechte vorbehalten.
+    </div>
+  </footer>
 
   <script>
     // === Seitenverwaltung ===
