@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Savoldi Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md p-4 flex flex-col sm:flex-row justify-between items-center sticky top-0 z-50">
+    <div class="text-center sm:text-left mb-2 sm:mb-0">
+      <h1 class="text-2xl font-light">🌾 Savoldi Freiland</h1>
+      <small class="text-gray-500">Freilandeier aus Othmarsingen</small>
+    </div>
+    <nav class="flex flex-wrap gap-2">
+      <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('home')">Home</button>
+      <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('shop')">Shop</button>
+      <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('about')">Über uns</button>
+      <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('contact')">Kontakt</button>
+      <button class="px-3 py-2 rounded hover:bg-gray-200 transition flex items-center" onclick="toggleCart()">🛒 <span id="cart-count" class="ml-1 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span></button>
+    </nav>
+  </header>
+
+  <!-- Cart -->
+  <div id="cart" class="hidden fixed top-0 right-0 w-80 h-full bg-white shadow-lg p-6 overflow-auto z-40">
+    <h2 class="text-xl font-semibold mb-4">Warenkorb</h2>
+    <div id="cart-items" class="space-y-3"></div>
+    <div class="mt-4 font-semibold">Gesamt: CHF <span id="cart-total">0.00</span></div>
+    <button class="mt-4 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition" onclick="checkout()">Zur Kasse</button>
+  </div>
+
+  <!-- Main Pages -->
+  <main class="p-6 space-y-12">
+
+    <!-- Home -->
+    <div id="home-page">
+      <h2 class="text-3xl font-semibold text-center mb-4">Frische Freilandeier aus Othmarsingen</h2>
+      <p class="text-center text-gray-600 mb-6">Natürlich aufgezogen, direkt zu Ihnen geliefert.</p>
+      <div class="text-center">
+        <button class="bg-green-500 text-white px-6 py-3 rounded hover:bg-green-600 transition" onclick="showPage('shop')">Jetzt bestellen</button>
+      </div>
+    </div>
+
+    <!-- Shop -->
+    <div id="shop-page" class="hidden">
+      <h2 class="text-2xl font-semibold mb-4">Produkte</h2>
+      <div id="products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+
+    <!-- About -->
+    <div id="about-page" class="hidden">
+      <h2 class="text-2xl font-semibold mb-4">Über Savoldi Freiland</h2>
+      <p class="text-gray-700">Regionale Freilandeier aus Othmarsingen, nachhaltig und tierfreundlich produziert.</p>
+    </div>
+
+    <!-- Contact -->
+    <div id="contact-page" class="hidden max-w-md mx-auto">
+      <h2 class="text-2xl font-semibold mb-4">Kontakt</h2>
+      <form id="contact-form" action="https://formspree.io/f/DEINE_CONTACT_ID" method="POST" class="space-y-4">
+        <input type="text" name="name" placeholder="Name" class="w-full p-2 border rounded" required>
+        <input type="email" name="email" placeholder="E-Mail" class="w-full p-2 border rounded" required>
+        <input type="tel" name="phone" placeholder="Telefon (optional)" class="w-full p-2 border rounded">
+        <textarea name="message" placeholder="Ihre Nachricht" class="w-full p-2 border rounded" required></textarea>
+        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Absenden</button>
+      </form>
+      <div id="contact-success" class="hidden mt-3 text-green-600 font-semibold">Vielen Dank! Wir melden uns.</div>
+    </div>
+
+    <!-- Checkout -->
+    <div id="checkout-page" class="hidden max-w-md mx-auto">
+      <h2 class="text-2xl font-semibold mb-4">Checkout</h2>
+      <form id="checkout-form" action="https://formspree.io/f/DEINE_CHECKOUT_ID" method="POST" class="space-y-3">
+        <input type="text" name="name" placeholder="Name" class="w-full p-2 border rounded" required>
+        <input type="email" name="email" placeholder="E-Mail" class="w-full p-2 border rounded" required>
+        <input type="tel" name="phone" placeholder="Telefon" class="w-full p-2 border rounded" required>
+        <input type="text" name="address" placeholder="Adresse" class="w-full p-2 border rounded" required>
+        <input type="text" name="city" placeholder="Ort" class="w-full p-2 border rounded" required>
+        <input type="text" name="zip" placeholder="PLZ" class="w-full p-2 border rounded" required>
+        <div class="flex gap-4">
+          <label class="flex items-center gap-2"><input type="radio" name="payment" value="twint" checked> TWINT</label>
+          <label class="flex items-center gap-2"><input type="radio" name="payment" value="invoice"> Rechnung</label>
+        </div>
+        <!-- Verstecktes Feld für Warenkorb -->
+        <textarea name="order" id="order-field" class="hidden"></textarea>
+        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Bestellung abschließen</button>
+      </form>
+      <div id="checkout-success" class="hidden mt-3 text-green-600 font-semibold">Vielen Dank für Ihre Bestellung!</div>
+    </div>
+
+  </main>
+
+  <script>
+    // === Seitenverwaltung ===
+    function showPage(page) {
+      const pages = ['home', 'shop', 'about', 'contact', 'checkout'];
+      pages.forEach(p => document.getElementById(p+'-page').classList.add('hidden'));
+      document.getElementById(page+'-page').classList.remove('hidden');
+    }
+
+    // === Warenkorb ===
+    let cart = [];
+    const products = [
+      { id:1, name:'6er Freilandeier', price:4.50, unit:'6 Stück', desc:'Frische Freilandeier', img:'🥚' },
+      { id:2, name:'10er Freilandeier', price:7.00, unit:'10 Stück', desc:'Frische Freilandeier', img:'🥚' },
+      { id:3, name:'30er Freilandeier', price:19.50, unit:'30 Stück', desc:'Vorteilspackung', img:'🥚' }
+    ];
+
+    // Produkte rendern
+    const productsContainer = document.getElementById('products');
+    products.forEach(p => {
+      const div = document.createElement('div');
+      div.className = "bg-white p-4 rounded shadow hover:shadow-lg transition flex flex-col items-center text-center";
+      div.innerHTML = `
+        <div class="text-6xl mb-3">${p.img}</div>
+        <h3 class="font-semibold text-lg mb-1">${p.name}</h3>
+        <p class="text-gray-500 mb-1">${p.unit}</p>
+        <p class="text-gray-600 mb-2">${p.desc}</p>
+        <p class="font-semibold mb-2">CHF ${p.price.toFixed(2)}</p>
+        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition" onclick="addToCart(${p.id})">In den Warenkorb</button>
+      `;
+      productsContainer.appendChild(div);
+    });
+
+    function toggleCart() {
+      document.getElementById('cart').classList.toggle('hidden');
+    }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      const existing = cart.find(i => i.id === id);
+      if (existing) existing.qty++;
+      else cart.push({ ...product, qty:1 });
+      renderCart();
+      toggleCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items');
+      container.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        const div = document.createElement('div');
+        div.className = "flex justify-between items-center";
+        div.innerHTML = `
+          <span>${item.name} (${item.qty}) - CHF ${(item.price*item.qty).toFixed(2)}</span>
+          <button class="text-red-500 font-bold px-2" onclick="removeFromCart(${item.id})">x</button>
+        `;
+        container.appendChild(div);
+      });
+      document.getElementById('cart-total').textContent = total.toFixed(2);
+      document.getElementById('cart-count').textContent = cart.reduce((a,b)=>a+b.qty,0);
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(i => i.id !== id);
+      renderCart();
+    }
+
+    function checkout() {
+      showPage('checkout');
+      toggleCart();
+    }
+
+    // === Checkout Formular: Warenkorb in hidden field packen ===
+    document.getElementById('checkout-form').addEventListener('submit', e => {
+      const orderField = document.getElementById('order-field');
+      orderField.value = cart.map(i => `${i.name} x${i.qty}`).join('\n');
+      // Erfolg anzeigen nach Absenden (Formspree reloadet die Seite normalerweise)
+      setTimeout(()=>{ 
+        document.getElementById('checkout-success').classList.remove('hidden'); 
+        cart = []; 
+        renderCart(); 
+        document.getElementById('checkout-form').reset(); 
+        showPage('home'); 
+      }, 500);
+    });
+
+    // === Kontaktformular Erfolgsmeldung (optional) ===
+    document.getElementById('contact-form').addEventListener('submit', e => {
+      setTimeout(()=>{
+        document.getElementById('contact-success').classList.remove('hidden');
+        document.getElementById('contact-form').reset();
+      }, 500);
+    });
+
+  </script>
+
+</body>
+</html>
