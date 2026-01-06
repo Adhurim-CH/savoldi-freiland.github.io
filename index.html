@@ -19,14 +19,19 @@
       <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('shop')">Shop</button>
       <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('about')">Über uns</button>
       <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('contact')">Kontakt</button>
-      <button class="px-3 py-2 rounded hover:bg-gray-200 transition flex items-center" onclick="toggleCart()">🛒 <span id="cart-count" class="ml-1 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span></button>
+      <button class="px-3 py-2 rounded hover:bg-gray-200 transition flex items-center" onclick="toggleCart()">🛒 
+        <span id="cart-count" class="ml-1 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+      </button>
     </nav>
   </header>
 
+  <!-- Overlay für Warenkorb -->
+  <div id="cart-overlay" class="hidden fixed inset-0 bg-black bg-opacity-30 z-40" onclick="toggleCart()"></div>
+
   <!-- Cart -->
-  <div id="cart" class="hidden fixed top-0 right-0 w-80 h-full bg-white shadow-lg p-6 overflow-auto z-40">
+  <div id="cart" class="fixed top-0 right-0 w-80 h-full bg-white shadow-lg p-6 overflow-auto z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
     <h2 class="text-xl font-semibold mb-4">Warenkorb</h2>
-    <div id="cart-items" class="space-y-3"></div>
+    <div id="cart-items" class="flex-1 space-y-3 overflow-auto"></div>
     <div class="mt-4 font-semibold">Gesamt: CHF <span id="cart-total">0.00</span></div>
     <button class="mt-4 w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition" onclick="checkout()">Zur Kasse</button>
   </div>
@@ -82,7 +87,6 @@
           <label class="flex items-center gap-2"><input type="radio" name="payment" value="twint" checked> TWINT</label>
           <label class="flex items-center gap-2"><input type="radio" name="payment" value="invoice"> Rechnung</label>
         </div>
-        <!-- Verstecktes Feld für Warenkorb -->
         <textarea name="order" id="order-field" class="hidden"></textarea>
         <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">Bestellung abschließen</button>
       </form>
@@ -123,8 +127,17 @@
       productsContainer.appendChild(div);
     });
 
+    // Toggle Warenkorb + Overlay
     function toggleCart() {
-      document.getElementById('cart').classList.toggle('hidden');
+      const cartDiv = document.getElementById('cart');
+      const overlay = document.getElementById('cart-overlay');
+      if(cartDiv.classList.contains('translate-x-full')){
+        cartDiv.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+      } else {
+        cartDiv.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+      }
     }
 
     function addToCart(id) {
@@ -143,9 +156,16 @@
       cart.forEach(item => {
         total += item.price * item.qty;
         const div = document.createElement('div');
-        div.className = "flex justify-between items-center";
+        div.className = "flex justify-between items-center gap-2 border-b pb-2";
+
         div.innerHTML = `
-          <span>${item.name} (${item.qty}) - CHF ${(item.price*item.qty).toFixed(2)}</span>
+          <div class="flex-1">
+            <span class="font-semibold">${item.name}</span><br>
+            CHF ${item.price.toFixed(2)} x 
+            <button class="px-1 bg-gray-200 rounded" onclick="changeQty(${item.id}, -1)">-</button>
+            <span class="px-2">${item.qty}</span>
+            <button class="px-1 bg-gray-200 rounded" onclick="changeQty(${item.id}, 1)">+</button>
+          </div>
           <button class="text-red-500 font-bold px-2" onclick="removeFromCart(${item.id})">x</button>
         `;
         container.appendChild(div);
@@ -159,6 +179,14 @@
       renderCart();
     }
 
+    function changeQty(id, delta) {
+      const item = cart.find(i => i.id === id);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) removeFromCart(id);
+      renderCart();
+    }
+
     function checkout() {
       showPage('checkout');
       toggleCart();
@@ -168,7 +196,6 @@
     document.getElementById('checkout-form').addEventListener('submit', e => {
       const orderField = document.getElementById('order-field');
       orderField.value = cart.map(i => `${i.name} x${i.qty}`).join('\n');
-      // Erfolg anzeigen nach Absenden (Formspree reloadet die Seite normalerweise)
       setTimeout(()=>{ 
         document.getElementById('checkout-success').classList.remove('hidden'); 
         cart = []; 
@@ -185,7 +212,6 @@
         document.getElementById('contact-form').reset();
       }, 500);
     });
-
   </script>
 
 </body>
