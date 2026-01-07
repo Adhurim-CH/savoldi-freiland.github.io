@@ -14,6 +14,18 @@
     .product-img { height:160px; width:100%; object-fit:cover; border-radius:0.75rem; }
     /* Logo */
     .logo-img { height:65px; width:auto; display:block; object-fit:contain; }
+    /* Badge für beliebte Produkte */
+    .badge {
+      position: absolute;
+      top:0.5rem;
+      left:0.5rem;
+      background:#008231;
+      color:white;
+      font-size:0.75rem;
+      font-weight:600;
+      padding:0.25rem 0.5rem;
+      border-radius:0.25rem;
+    }
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
@@ -101,7 +113,6 @@
 
 <!-- FOOTER -->
 <footer class="bg-[#008231] text-white p-6 text-sm">
-  <footer class="bg-[#008231] text-white p-6 text-sm">
   <div class="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6">
     <div class="space-y-1">
       <h4 class="font-semibold flex items-center gap-1"><i data-feather="home"></i> Über uns</h4>
@@ -118,34 +129,36 @@
       <h4 class="font-semibold flex items-center gap-1"><i data-feather="clock"></i> Öffnungszeiten</h4>
       <p>Mo–Fr: 8:00 – 18:00 Uhr</p>
       <p>Sa-So: Geschlossen</p>
-      </div>
+    </div>
     <div class="space-y-1">
       <h4 class="font-semibold flex items-center gap-1"><i data-feather="credit-card"></i> Zahlungsmöglichkeiten</h4>
       <p>-Rechnung</p>
       <p>-Twint</p>
-       </div>
+    </div>
   </div>
   <p class="text-center mt-4">© 2026 Savoldi Freiland, realisiert von TwoNet</p>
 </footer>
-  
+
 <script>
-feather.replace()
+feather.replace();
 
 let cart = [];
 
+// Produkte: Eierabo als erstes mit Badge
 const products = [
+  { id:4, name:'Eierabo', price:null, desc:'Wöchentliche Lieferung frischer Eier.', img:'images/eier-abo.jpg', onRequest:true, badge:'Beliebt' },
   { id:1, name:'6er Freilandeier', price:4.5, desc:'Frische Eier aus Freilandhaltung.', img:'images/eier-6er.jpg' },
   { id:2, name:'10er Freilandeier', price:7, desc:'Ideal für Familien.', img:'images/eier-10er.jpg' },
-  { id:3, name:'30er Freilandeier', price:19.5, desc:'Vorteilspackung.', img:'images/eier-30er.jpg' },
-  { id:4, name:'Eierabo', price:null, desc:'Wöchentliche Lieferung frischer Eier.', img:'images/eier-abo.jpg', onRequest:true }
+  { id:3, name:'30er Freilandeier', price:19.5, desc:'Vorteilspackung.', img:'images/eier-30er.jpg' }
 ];
 
 const productsEl = document.getElementById('products');
 
 products.forEach(p => {
   const div = document.createElement('div');
-  div.className = 'bg-white p-4 rounded shadow';
+  div.className = 'bg-white p-4 rounded shadow relative';
   div.innerHTML = `
+    ${p.badge ? `<div class="badge">${p.badge}</div>` : ''}
     <img src="${p.img}" class="product-img mb-3" onerror="this.src='images/placeholder.jpg'">
     <h3 class="font-semibold">${p.name}</h3>
     <p class="text-gray-600 text-sm mb-2">${p.desc}</p>
@@ -171,6 +184,7 @@ products.forEach(p => {
 });
 
 function showPage(p){['home','shop','contact','checkout'].forEach(x=>document.getElementById(x+'-page').classList.add('hidden'));document.getElementById(p+'-page').classList.remove('hidden');}
+
 const cartEl=document.getElementById('cart'), overlay=document.getElementById('cart-overlay');
 function toggleCart(){cartEl.classList.toggle('translate-x-full'); overlay.classList.toggle('hidden');}
 
@@ -222,20 +236,3 @@ document.getElementById('checkout-form').addEventListener('submit',()=>{
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
