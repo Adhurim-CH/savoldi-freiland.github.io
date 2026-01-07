@@ -19,11 +19,18 @@
 
     /* Header Navigation */
     .nav-btn {
-      padding: 0.5rem 0.9rem;
+      padding: 0.35rem 0.7rem;
       border-radius: 0.5rem;
       font-weight: 500;
+      font-size: 0.875rem;
       color: #374151;
       transition: all 0.2s ease;
+    }
+    @media (min-width: 640px) {
+      .nav-btn {
+        padding: 0.5rem 0.9rem;
+        font-size: 1rem;
+      }
     }
     .nav-btn:hover {
       background: rgba(0,130,49,0.1);
@@ -44,10 +51,12 @@
 
     /* Logo */
     .logo-img {
-      height:65px;
-      width:auto;
-      display:block;
-      object-fit:contain;
+      height:55px;
+    }
+    @media (min-width: 640px) {
+      .logo-img {
+        height:65px;
+      }
     }
 
     /* Badge */
@@ -65,18 +74,18 @@
   </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="bg-gray-50 min-h-screen flex flex-col overflow-x-hidden">
 
 <!-- HEADER -->
-<header class="bg-white shadow sticky top-0 z-50 p-4 flex justify-between items-center">
-  <img src="images/logo-new.png" class="logo-img" alt="Savoldi Freiland">
+<header class="bg-white shadow sticky top-0 z-50 px-4 py-3 flex justify-between items-center">
+  <img src="images/logo-new.jpg" class="logo-img" alt="Savoldi Freiland">
 
-  <nav class="flex gap-2 items-center">
+  <nav class="flex gap-1 sm:gap-2 items-center">
     <button class="nav-btn active" onclick="navigate('home')">Home</button>
     <button class="nav-btn" onclick="navigate('shop')">Shop</button>
     <button class="nav-btn" onclick="navigate('contact')">Kontakt</button>
 
-    <button onclick="toggleCart()" class="relative ml-2">
+    <button onclick="toggleCart()" class="relative ml-1 sm:ml-2 text-lg">
       🛒
       <span id="cart-count"
         class="absolute -top-2 -right-2 bg-[#008231] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
@@ -86,11 +95,12 @@
   </nav>
 </header>
 
-<!-- CART -->
+<!-- CART OVERLAY -->
 <div id="cart-overlay" class="hidden fixed inset-0 bg-black/40 z-40" onclick="toggleCart()"></div>
 
+<!-- CART -->
 <div id="cart"
-  class="fixed right-0 top-0 w-80 h-full bg-white shadow-lg z-50 transform translate-x-full transition p-5 flex flex-col">
+  class="fixed right-0 top-0 h-full w-full sm:w-80 bg-white shadow-lg z-50 transform translate-x-full transition p-5 flex flex-col">
 
   <h2 class="text-xl font-semibold mb-4">Warenkorb</h2>
 
@@ -106,18 +116,22 @@
 </div>
 
 <!-- MAIN -->
-<main class="flex-1 p-6 space-y-12">
+<main class="flex-1 p-4 sm:p-6 space-y-12">
 
 <!-- HOME -->
 <section id="home-page"
-  class="relative text-white text-center h-96 flex flex-col justify-center items-center"
+  class="relative text-white text-center h-80 sm:h-96 flex flex-col justify-center items-center"
   style="background-image:url('images/home-banner.jpg'); background-size:cover; background-position:center;">
 
-  <h2 class="text-4xl font-bold mb-3 drop-shadow-lg">Frische Freilandeier</h2>
-  <p class="text-lg mb-6 drop-shadow-md">Regional, nachhaltig & persönlich</p>
+  <h2 class="text-3xl sm:text-4xl font-bold mb-3 drop-shadow-lg">
+    Frische Freilandeier
+  </h2>
 
-  <button class="btn-green px-6 py-3 rounded"
-    onclick="navigate('shop')">
+  <p class="text-base sm:text-lg mb-6 drop-shadow-md">
+    Regional, nachhaltig & persönlich
+  </p>
+
+  <button class="btn-green px-6 py-3 rounded" onclick="navigate('shop')">
     Jetzt bestellen
   </button>
 </section>
@@ -132,14 +146,10 @@
 <section id="contact-page" class="hidden max-w-md mx-auto">
   <h2 class="text-2xl font-semibold mb-4">Kontakt</h2>
 
-  <form action="https://formspree.io/f/FORM_CONTACT_ID"
-        method="POST"
-        class="space-y-3">
-
+  <form action="https://formspree.io/f/FORM_CONTACT_ID" method="POST" class="space-y-3">
     <input name="name" placeholder="Name" class="w-full border p-2 rounded" required>
     <input name="email" type="email" placeholder="E-Mail" class="w-full border p-2 rounded" required>
     <textarea name="message" placeholder="Nachricht" class="w-full border p-2 rounded" required></textarea>
-
     <button class="btn-green w-full py-2 rounded">Absenden</button>
   </form>
 </section>
@@ -151,18 +161,13 @@
   <div class="bg-white p-4 rounded shadow">
     <h3 class="font-semibold mb-3">Bestellübersicht</h3>
     <div id="checkout-summary" class="space-y-2"></div>
-
     <div class="border-t mt-3 pt-2 flex justify-between font-semibold">
       <span>Gesamt</span>
       <span>CHF <span id="checkout-total">0.00</span></span>
     </div>
   </div>
 
-  <form id="checkout-form"
-        action="https://formspree.io/f/FORM_CHECKOUT_ID"
-        method="POST"
-        class="space-y-3">
-
+  <form id="checkout-form" action="https://formspree.io/f/FORM_CHECKOUT_ID" method="POST" class="space-y-3">
     <input name="name" placeholder="Name" class="w-full border p-2 rounded" required>
     <input name="email" type="email" placeholder="E-Mail" class="w-full border p-2 rounded" required>
     <input name="address" placeholder="Adresse" class="w-full border p-2 rounded" required>
@@ -173,10 +178,7 @@
     </div>
 
     <textarea name="order" id="order-field" class="hidden"></textarea>
-
-    <button class="btn-green w-full py-2 rounded">
-      Bestellung abschicken
-    </button>
+    <button class="btn-green w-full py-2 rounded">Bestellung abschicken</button>
   </form>
 </section>
 
@@ -184,31 +186,29 @@
 
 <!-- FOOTER -->
 <footer class="bg-[#008231] text-white p-6 text-sm">
-  <div class="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6">
-
+  <div class="max-w-4xl mx-auto grid sm:grid-cols-4 gap-6">
     <div>
-      <h4 class="font-semibold mb-1">Savoldi Freiland</h4>
+      <h4 class="font-semibold flex items-center gap-2"><i data-feather="home"></i> Savoldi Freiland</h4>
       <p>Ebnet 15</p>
       <p>5504 Othmarsingen</p>
     </div>
-
     <div>
-      <h4 class="font-semibold mb-1">Kontakt</h4>
+      <h4 class="font-semibold flex items-center gap-2"><i data-feather="mail"></i> Kontakt</h4>
       <p>info@savoldi-freiland.ch</p>
       <p>+41 79 797 79 79</p>
     </div>
-
     <div>
-      <h4 class="font-semibold mb-1">Öffnungszeiten</h4>
+      <h4 class="font-semibold flex items-center gap-2"><i data-feather="clock"></i> Öffnungszeiten</h4>
       <p>Mo–Fr: 8–18 Uhr</p>
       <p>Sa–So: geschlossen</p>
     </div>
-
+    <div>
+      <h4 class="font-semibold flex items-center gap-2"><i data-feather="credit-card"></i> Zahlung</h4>
+      <p>TWINT</p>
+      <p>Rechnung</p>
+    </div>
   </div>
-
-  <p class="text-center mt-4">
-    © 2026 Savoldi Freiland
-  </p>
+  <p class="text-center mt-6">© 2026 Savoldi Freiland</p>
 </footer>
 
 <script>
@@ -222,7 +222,6 @@ function navigate(page) {
   document.getElementById(page+'-page').classList.remove('hidden');
 
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-
   const map = { home:0, shop:1, contact:2 };
   if (map[page] !== undefined) {
     document.querySelectorAll('.nav-btn')[map[page]].classList.add('active');
@@ -244,28 +243,20 @@ const productsEl = document.getElementById('products');
 products.forEach(p => {
   const div = document.createElement('div');
   div.className = 'bg-white p-4 rounded shadow relative';
-
   div.innerHTML = `
     ${p.badge ? `<div class="badge">${p.badge}</div>` : ''}
-    <img src="${p.img}" class="product-img mb-3" onerror="this.src='images/placeholder.jpg'">
+    <img src="${p.img}" class="product-img mb-3">
     <h3 class="font-semibold">${p.name}</h3>
     <p class="text-gray-600 text-sm mb-2">${p.desc}</p>
-
     ${
       p.onRequest
-      ? `
-        <select id="size-${p.id}" class="w-full border p-1 rounded mb-2">
-          <option>6er</option>
-          <option>10er</option>
-          <option>30er</option>
-        </select>
-        <p class="text-[#008231] font-semibold mb-2">Preis auf Anfrage</p>
-        <button class="btn-green w-full py-2 rounded" onclick="addAbo(${p.id})">Abo anfragen</button>
-      `
-      : `
-        <p class="font-semibold mb-2">CHF ${p.price.toFixed(2)}</p>
-        <button class="btn-green w-full py-2 rounded" onclick="addToCart(${p.id})">In den Warenkorb</button>
-      `
+        ? `<select id="size-${p.id}" class="w-full border p-1 rounded mb-2">
+             <option>6er</option><option>10er</option><option>30er</option>
+           </select>
+           <p class="text-[#008231] font-semibold mb-2">Preis auf Anfrage</p>
+           <button class="btn-green w-full py-2 rounded" onclick="addAbo(${p.id})">Abo anfragen</button>`
+        : `<p class="font-semibold mb-2">CHF ${p.price.toFixed(2)}</p>
+           <button class="btn-green w-full py-2 rounded" onclick="addToCart(${p.id})">In den Warenkorb</button>`
     }
   `;
   productsEl.appendChild(div);
@@ -283,34 +274,28 @@ function addToCart(id) {
   const p = products.find(x => x.id === id);
   const e = cart.find(x => x.id === id);
   e ? e.qty++ : cart.push({ ...p, qty:1 });
-  renderCart();
-  toggleCart();
+  renderCart(); toggleCart();
 }
 
 function addAbo(id) {
   const size = document.getElementById(`size-${id}`).value;
   cart.push({ name:'Eierabo', size, qty:1, price:null });
-  renderCart();
-  toggleCart();
+  renderCart(); toggleCart();
 }
 
 function renderCart() {
   let total = 0;
   const el = document.getElementById('cart-items');
   el.innerHTML = '';
-
   cart.forEach(i => {
     if (i.price) total += i.price * i.qty;
-
     el.innerHTML += `
       <div class="border-b pb-2">
         <strong>${i.name}</strong>
         ${i.size ? `<div class="text-sm text-gray-500">${i.size}, wöchentlich</div>` : ''}
         <div>${i.price ? `CHF ${(i.price*i.qty).toFixed(2)}` : '<span class="text-[#008231]">Preis auf Anfrage</span>'}</div>
-      </div>
-    `;
+      </div>`;
   });
-
   document.getElementById('cart-total').textContent = total.toFixed(2);
   document.getElementById('cart-count').textContent = cart.reduce((a,b)=>a+b.qty,0);
 }
@@ -325,7 +310,6 @@ function updateCheckout() {
   let total = 0;
   const el = document.getElementById('checkout-summary');
   el.innerHTML = '';
-
   cart.forEach(i => {
     if (i.price) {
       total += i.price * i.qty;
@@ -334,7 +318,6 @@ function updateCheckout() {
       el.innerHTML += `<div class="flex justify-between text-[#008231]"><span>${i.name} (${i.size})</span><span>Preis auf Anfrage</span></div>`;
     }
   });
-
   document.getElementById('checkout-total').textContent = total.toFixed(2);
 }
 
@@ -346,4 +329,3 @@ document.getElementById('checkout-form').addEventListener('submit', () => {
 
 </body>
 </html>
-
