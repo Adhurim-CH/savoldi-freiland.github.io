@@ -7,10 +7,26 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    .btn-green { background:#008231; color:white; }
-    .btn-green:hover { background:#00691a; }
+    /* Buttons grün mit Hover-Animation */
+    .btn-green {
+      background:#008231;
+      color:white;
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-green:hover {
+      background:#00691a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .btn-green:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+    /* Produktbilder */
     .product-img { height:160px; width:100%; object-fit:cover; border-radius:0.75rem; }
+    /* Logo */
     .logo-img { height:65px; width:auto; display:block; object-fit:contain; }
+    /* Badge für beliebte Produkte */
     .badge {
       position: absolute;
       top:0.5rem;
@@ -54,7 +70,8 @@
 <section id="home-page" class="relative text-white text-center h-96 flex flex-col justify-center items-center" style="background-image:url('images/home-banner.jpg'); background-size:cover; background-position:center;">
   <h2 class="text-4xl font-bold mb-3 drop-shadow-lg">Frische Freilandeier</h2>
   <p class="text-lg mb-6 drop-shadow-md">Regional, nachhaltig & persönlich</p>
-  <button class="btn-green px-6 py-3 rounded">Jetzt bestellen</button>
+  <!-- STARTSEITEN-KNOPF jetzt klickbar -->
+  <button class="btn-green px-6 py-3 rounded" onclick="showPage('shop')">Jetzt bestellen</button>
 </section>
 
 <section id="shop-page" class="hidden">
@@ -128,7 +145,6 @@ feather.replace();
 
 let cart = [];
 
-// Produkte sauber definiert
 const products = [
   { id:4, name:'Eierabo', price:null, desc:'Jede Woche frische Freilandeier direkt zu dir nach Hause.', img:'images/eier-abo.jpg', onRequest:true, badge:'Beliebt' },
   { id:1, name:'6er-Packung Freilandeier', price:4.5, desc:'Frisch vom Hof – ideal für den täglichen Genuss.', img:'images/eier-6er.jpg' },
