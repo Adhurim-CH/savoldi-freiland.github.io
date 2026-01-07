@@ -1,57 +1,54 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Savoldi Freiland Shop</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/feather-icons"></script>
-  <style>
-    /* Buttons grün */
-    .btn-green { background:#008231; color:white; transition: background 0.2s; }
-    .btn-green:hover { background:#00691a; }
-
-    /* Produktbilder */
-    .product-img { height:160px; width:100%; object-fit:cover; border-radius:0.75rem; }
-
-    /* Logo */
-    .logo-img { height:65px; width:auto; display:block; object-fit:contain; }
-
-    /* Badge für beliebte Produkte */
-    .badge {
-      position: absolute;
-      top:0.5rem;
-      left:0.5rem;
-      background:#FF3030;
-      color:white;
-      font-size:0.75rem;
-      font-weight:600;
-      padding:0.25rem 0.5rem;
-      border-radius:0.25rem;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Savoldi Freiland Shop</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<style>
+  /* Buttons grün */
+  .btn-green { background:#008231; color:white; transition:background 0.2s; }
+  .btn-green:hover { background:#00691a; }
+  /* Produktbilder */
+  .product-img { height:160px; width:100%; object-fit:cover; border-radius:0.75rem; }
+  /* Logo */
+  .logo-img { height:65px; width:auto; display:block; object-fit:contain; }
+  /* Badge für beliebte Produkte */
+  .badge {
+    position: absolute;
+    top:0.5rem;
+    left:0.5rem;
+    background:#FF3030;
+    color:white;
+    font-size:0.75rem;
+    font-weight:600;
+    padding:0.25rem 0.5rem;
+    border-radius:0.25rem;
+  }
+</style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
 <!-- HEADER -->
-<header class="bg-white shadow sticky top-0 z-50 p-4 flex justify-between items-center">
+<header class="bg-white shadow sticky top-0 z-50 p-3 flex justify-between items-center">
   <div class="flex items-center">
     <img src="images/logo-new.png" alt="Savoldi Freiland" class="logo-img">
   </div>
   <nav class="flex gap-2 sm:gap-3 items-center">
-    <button onclick="showPage('home')" class="px-3 py-1 rounded hover:bg-gray-100">Home</button>
-    <button onclick="showPage('shop')" class="px-3 py-1 rounded hover:bg-gray-100">Shop</button>
-    <button onclick="showPage('contact')" class="px-3 py-1 rounded hover:bg-gray-100">Kontakt</button>
-    <button onclick="toggleCart()" class="relative px-3 py-1 rounded hover:bg-gray-100">
+    <button onclick="showPage('home')" class="btn-green px-3 py-1 rounded text-sm sm:text-base">Home</button>
+    <button onclick="showPage('shop')" class="btn-green px-3 py-1 rounded text-sm sm:text-base">Shop</button>
+    <button onclick="showPage('contact')" class="btn-green px-3 py-1 rounded text-sm sm:text-base">Kontakt</button>
+    <button onclick="toggleCart()" class="relative btn-green px-2 py-1 rounded text-sm sm:text-base">
       🛒
-      <span id="cart-count" class="absolute -top-2 -right-2 bg-[#008231] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
+      <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-[#008231] text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
     </button>
   </nav>
 </header>
 
 <!-- CART -->
 <div id="cart-overlay" class="hidden fixed inset-0 bg-black/40 z-40" onclick="toggleCart()"></div>
-<div id="cart" class="fixed right-0 top-0 w-80 h-full bg-white shadow-lg z-50 transform translate-x-full transition-all p-5 flex flex-col sm:w-64">
+<div id="cart" class="fixed right-0 top-0 w-11/12 sm:w-80 h-full bg-white shadow-lg z-50 transform translate-x-full transition p-5 flex flex-col">
   <h2 class="text-xl font-semibold mb-4">Warenkorb</h2>
   <div id="cart-items" class="flex-1 space-y-3 overflow-auto"></div>
   <div class="border-t pt-3 font-semibold">Gesamt: CHF <span id="cart-total">0.00</span></div>
@@ -59,13 +56,13 @@
 </div>
 
 <!-- MAIN -->
-<main class="flex-1 p-6 space-y-12">
+<main class="flex-1 p-4 sm:p-6 space-y-12">
 
 <!-- HOME -->
 <section id="home-page" class="relative text-white text-center h-96 flex flex-col justify-center items-center" style="background-image:url('images/home-banner.jpg'); background-size:cover; background-position:center;">
   <h2 class="text-4xl font-bold mb-3 drop-shadow-lg">Frische Freilandeier</h2>
   <p class="text-lg mb-6 drop-shadow-md">Regional, nachhaltig & persönlich</p>
-  <button onclick="showPage('shop')" class="btn-green px-6 py-3 rounded">Jetzt bestellen</button>
+  <button class="btn-green px-6 py-3 rounded" onclick="showPage('shop')">Jetzt bestellen</button>
 </section>
 
 <!-- SHOP -->
@@ -77,16 +74,13 @@
 <!-- CONTACT -->
 <section id="contact-page" class="hidden max-w-md mx-auto">
   <h2 class="text-2xl font-semibold mb-4">Kontakt</h2>
-  <form id="contact-form" class="space-y-3">
+  <form id="contact-form" action="https://formspree.io/f/FORM_CONTACT_ID" method="POST" class="space-y-3">
     <input name="name" placeholder="Name" class="w-full border p-2 rounded" required>
     <input name="email" type="email" placeholder="E-Mail" class="w-full border p-2 rounded" required>
     <textarea name="message" placeholder="Nachricht" class="w-full border p-2 rounded" required></textarea>
     <button class="btn-green w-full py-2 rounded">Absenden</button>
   </form>
-  <div id="contact-thanks" class="hidden text-center bg-white p-6 rounded shadow mt-3">
-    <h3 class="text-xl font-semibold text-[#008231] mb-2">Vielen Dank für deine Anfrage!</h3>
-    <p class="text-gray-600">Wir melden uns so schnell wie möglich.</p>
-  </div>
+  <div id="contact-success" class="hidden text-[#008231] mt-2 font-semibold">Vielen Dank für deine Anfrage!</div>
 </section>
 
 <!-- CHECKOUT -->
@@ -102,7 +96,7 @@
     </div>
   </div>
 
-  <form id="checkout-form" class="space-y-3">
+  <form id="checkout-form" action="https://formspree.io/f/FORM_CHECKOUT_ID" method="POST" class="space-y-3">
     <input name="name" placeholder="Name" class="w-full border p-2 rounded" required>
     <input name="email" type="email" placeholder="E-Mail" class="w-full border p-2 rounded" required>
     <input name="address" placeholder="Adresse" class="w-full border p-2 rounded" required>
@@ -113,14 +107,11 @@
     </div>
 
     <textarea name="order" id="order-field" class="hidden"></textarea>
-    <button type="submit" class="btn-green w-full py-2 rounded">Bestellung abschicken</button>
+    <button class="btn-green w-full py-2 rounded">Bestellung abschicken</button>
   </form>
-
-  <div id="checkout-thanks" class="hidden text-center bg-white p-6 rounded shadow mt-3">
-    <h3 class="text-2xl font-semibold text-[#008231] mb-2">Vielen Dank für deine Bestellung!</h3>
-    <p class="text-gray-600">Wir melden uns in Kürze bei dir.</p>
-  </div>
+  <div id="checkout-success" class="hidden text-[#008231] font-semibold mt-2">Vielen Dank für deine Bestellung!</div>
 </section>
+
 </main>
 
 <!-- FOOTER -->
@@ -140,7 +131,12 @@
     <div class="space-y-1">
       <h4 class="font-semibold flex items-center gap-1"><i data-feather="clock"></i> Öffnungszeiten</h4>
       <p>Mo–Fr: 8:00 – 18:00 Uhr</p>
-      <p>Sa-So: Geschlossen</p>
+      <p>Sa–So: Geschlossen</p>
+    </div>
+    <div class="space-y-1">
+      <h4 class="font-semibold flex items-center gap-1"><i data-feather="credit-card"></i> Zahlungsmöglichkeiten</h4>
+      <p>- Rechnung</p>
+      <p>- TWINT</p>
     </div>
   </div>
   <p class="text-center mt-4">© 2026 Savoldi Freiland, realisiert von TwoNet</p>
@@ -151,12 +147,11 @@ feather.replace();
 
 let cart = [];
 
-// Produkte inkl. Eierabo als erstes
 const products = [
-  { id:4, name:'Eierabo', price:null, desc:'Jede Woche frische Eier direkt zu dir nach Haus geliefert.', img:'images/eier-abo.jpg', onRequest:true, badge:'Beliebt' },
-  { id:1, name:'6er-Packung Freilandeier', price:4.5, desc:'Frisch vom Hof – täglich frisch.', img:'images/eier-6er.jpg' },
-  { id:2, name:'10er-Packung Freilandeier', price:7, desc:'Perfekt für kleine Haushalte.', img:'images/eier-10er.jpg' },
-  { id:3, name:'30er-Packung Freilandeier', price:19.5, desc:'Vorteilspackung für Backfans.', img:'images/eier-30er.jpg' }
+  { id:4, name:'Eierabo', price:null, desc:'Jede Woche frische Freilandeier direkt zu dir nach Haus geliefert.', img:'images/eier-abo.jpg', onRequest:true, badge:'Beliebt' },
+  { id:1, name:'6er-Packung Freilandeier', price:4.5, desc:'Frisch vom Hof – täglich genießen.', img:'images/eier-6er.jpg' },
+  { id:2, name:'10er-Packung Freilandeier', price:7, desc:'Perfekt für die Familie.', img:'images/eier-10er.jpg' },
+  { id:3, name:'30er-Packung Freilandeier', price:19.5, desc:'Vorteilspackung für grosse Haushalte.', img:'images/eier-30er.jpg' }
 ];
 
 const productsEl = document.getElementById('products');
@@ -190,33 +185,30 @@ products.forEach(p => {
   productsEl.appendChild(div);
 });
 
-// Seitenwechsel
 function showPage(p){
   ['home','shop','contact','checkout'].forEach(x=>document.getElementById(x+'-page').classList.add('hidden'));
   document.getElementById(p+'-page').classList.remove('hidden');
 }
 
-// Warenkorb toggle
 const cartEl=document.getElementById('cart'), overlay=document.getElementById('cart-overlay');
 function toggleCart(){cartEl.classList.toggle('translate-x-full'); overlay.classList.toggle('hidden');}
 
-// Produkte in den Warenkorb
 function addToCart(id){
   const p=products.find(x=>x.id===id);
   const e=cart.find(x=>x.id===id);
   e?e.qty++:cart.push({...p,qty:1});
   renderCart(); toggleCart();
 }
+
 function addAbo(id){
   const size=document.getElementById(`size-${id}`).value;
   cart.push({id,name:'Eierabo',size,qty:1,price:null});
   renderCart(); toggleCart();
 }
 
-// Warenkorb rendern
 function renderCart(){
   let total=0;
-  const el=document.getElementById('cart-items');el.innerHTML='';
+  const el=document.getElementById('cart-items'); el.innerHTML='';
   cart.forEach(i=>{
     if(i.price) total+=i.price*i.qty;
     el.innerHTML+=`
@@ -230,47 +222,58 @@ function renderCart(){
   document.getElementById('cart-count').textContent=cart.reduce((a,b)=>a+b.qty,0);
 }
 
-// Checkout
-function checkout(){showPage('checkout');toggleCart();updateCheckout();}
+function checkout(){showPage('checkout'); toggleCart(); updateCheckout();}
 function updateCheckout(){
   let total=0;
-  const el=document.getElementById('checkout-summary');el.innerHTML='';
+  const el=document.getElementById('checkout-summary'); el.innerHTML='';
   cart.forEach(i=>{
-    if(i.price){total+=i.price*i.qty;el.innerHTML+=`<div class="flex justify-between"><span>${i.name}</span><span>CHF ${(i.price*i.qty).toFixed(2)}</span></div>`;}
+    if(i.price){total+=i.price*i.qty; el.innerHTML+=`<div class="flex justify-between"><span>${i.name}</span><span>CHF ${(i.price*i.qty).toFixed(2)}</span></div>`;}
     else{el.innerHTML+=`<div class="flex justify-between text-[#008231]"><span>${i.name} (${i.size}, wöchentlich)</span><span>Preis auf Anfrage</span></div>`;}
   });
   document.getElementById('checkout-total').textContent=total.toFixed(2);
 }
 
-// Checkout Formular AJAX
-document.getElementById('checkout-form').addEventListener('submit',function(e){
+// Checkout AJAX Submit
+document.getElementById('checkout-form').addEventListener('submit', async (e)=>{
   e.preventDefault();
-  document.getElementById('order-field').value=cart.map(i=>i.price?`${i.name} x${i.qty}`:`${i.name} (${i.size}, wöchentlich) – Preis auf Anfrage`).join('\n');
-  fetch("https://formspree.io/f/xlgdqjby", {
-    method:"POST", headers:{"Accept":"application/json"}, body:new FormData(this)
-  }).then(res=>{
+  const form = e.target;
+  document.getElementById('order-field').value =
+    cart.map(i=>i.price
+      ? `${i.name} (x${i.qty}) – CHF ${(i.price*i.qty).toFixed(2)}`
+      : `${i.name} (${i.size}, wöchentlich) – Preis auf Anfrage`
+    ).join('\n');
+
+  const data = new FormData(form);
+
+  try {
+    const res = await fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} });
     if(res.ok){
-      this.classList.add('hidden');
-      document.getElementById('checkout-thanks').classList.remove('hidden');
-      cart=[]; renderCart();
-    }
-  });
+      document.getElementById('checkout-success').classList.remove('hidden');
+      cart=[]; renderCart(); form.reset();
+      setTimeout(()=>{ showPage('home'); document.getElementById('checkout-success').classList.add('hidden'); },3000);
+    } else alert("Fehler beim Absenden. Bitte später erneut versuchen.");
+  } catch(err){
+    alert("Fehler beim Absenden. Bitte überprüfe deine Internetverbindung.");
+  }
 });
 
-// Kontakt Formular AJAX
-document.getElementById('contact-form').addEventListener('submit',function(e){
+// Kontaktformular AJAX Submit
+document.getElementById('contact-form').addEventListener('submit', async (e)=>{
   e.preventDefault();
-  fetch("https://formspree.io/f/xlgdqjby", {
-    method:"POST", headers:{"Accept":"application/json"}, body:new FormData(this)
-  }).then(res=>{
+  const form = e.target;
+  const data = new FormData(form);
+
+  try{
+    const res = await fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} });
     if(res.ok){
-      this.classList.add('hidden');
-      document.getElementById('contact-thanks').classList.remove('hidden');
-    }
-  });
+      document.getElementById('contact-success').classList.remove('hidden');
+      form.reset();
+      setTimeout(()=>document.getElementById('contact-success').classList.add('hidden'),3000);
+    } else alert("Fehler beim Absenden. Bitte später erneut versuchen.");
+  } catch(err){
+    alert("Fehler beim Absenden. Bitte überprüfe deine Internetverbindung.");
+  }
 });
 </script>
-
 </body>
 </html>
-
