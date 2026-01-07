@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Savoldi Freiland Shop</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
+  <script src="https://unpkg.com/feather-icons"></script>
   <style>
     .btn-green { background:#008231; color:white; }
     .btn-green:hover { background:#00691a; }
     .product-img { height:160px; width:100%; object-fit:cover; border-radius:0.75rem; }
   </style>
 </head>
-
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
 <!-- HEADER -->
@@ -95,20 +94,33 @@
     <button class="btn-green w-full py-2 rounded">Bestellung abschicken</button>
   </form>
 </section>
-
 </main>
 
 <!-- FOOTER -->
 <footer class="bg-[#008231] text-white p-6 text-sm">
   <div class="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6">
-    <div><strong>Savoldi Freiland</strong><br>Frische Freilandeier aus Othmarsingen</div>
-    <div><strong>Kontakt</strong><br>Othmarsingen<br>info@savoldi-freiland.ch</div>
-    <div><strong>Öffnungszeiten</strong><br>Mo–Fr 8–18 Uhr<br>Sa 8–14 Uhr</div>
+    <div class="space-y-1">
+      <h4 class="font-semibold flex items-center gap-1"><i data-feather="home"></i> Über uns</h4>
+      <p>Savoldi Freiland</p>
+      <p>Frische Freilandeier aus Othmarsingen</p>
+    </div>
+    <div class="space-y-1">
+      <h4 class="font-semibold flex items-center gap-1"><i data-feather="mail"></i> Kontakt</h4>
+      <p>Othmarsingen, Schweiz</p>
+      <p>info@savoldi-freiland.ch</p>
+    </div>
+    <div class="space-y-1">
+      <h4 class="font-semibold flex items-center gap-1"><i data-feather="clock"></i> Öffnungszeiten</h4>
+      <p>Mo–Fr: 8:00 – 18:00</p>
+      <p>Sa: 8:00 – 14:00</p>
+    </div>
   </div>
   <p class="text-center mt-4">© 2026 Savoldi Freiland</p>
 </footer>
 
 <script>
+feather.replace()
+
 let cart = [];
 
 const products = [
@@ -127,7 +139,6 @@ products.forEach(p => {
     <img src="${p.img}" class="product-img mb-3" onerror="this.src='images/placeholder.jpg'">
     <h3 class="font-semibold">${p.name}</h3>
     <p class="text-gray-600 text-sm mb-2">${p.desc}</p>
-
     ${
       p.onRequest
       ? `
