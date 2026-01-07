@@ -3,265 +3,236 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Savoldi Shop</title>
+  <title>Savoldi Freiland Shop</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-    /* Eigenes Grün für Buttons */
     .btn-green {
       background-color: #008231;
       color: white;
-      transition: background-color 0.2s;
     }
     .btn-green:hover {
       background-color: #00691a;
     }
-    /* Produktbild-Klasse */
     .product-img {
       width: 100%;
-      height: 150px;
+      height: 160px;
       object-fit: cover;
-      border-radius: 0.5rem;
-    }
-    /* Warenkorb-Scroll */
-    #cart-items::-webkit-scrollbar {
-      width: 6px;
-    }
-    #cart-items::-webkit-scrollbar-thumb {
-      background-color: #008231;
-      border-radius: 3px;
+      border-radius: 0.75rem;
     }
   </style>
 </head>
-<body class="bg-gray-50 font-sans flex flex-col min-h-screen">
 
-  <!-- Header -->
-  <header class="bg-white shadow-md p-4 flex flex-col sm:flex-row justify-between items-center sticky top-0 z-50">
-    <div class="text-center sm:text-left mb-2 sm:mb-0">
-      <h1 class="text-2xl font-light">🌾 Savoldi Freiland</h1>
-      <small class="text-gray-500">Freilandeier aus Othmarsingen</small>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+
+<!-- HEADER -->
+<header class="bg-white shadow sticky top-0 z-50 p-4 flex justify-between items-center">
+  <div>
+    <h1 class="text-2xl font-light">🌾 Savoldi Freiland</h1>
+    <p class="text-sm text-gray-500">Freilandeier aus Othmarsingen</p>
+  </div>
+  <nav class="flex gap-2 items-center">
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('shop')">Shop</button>
+    <button onclick="showPage('contact')">Kontakt</button>
+    <button onclick="toggleCart()" class="relative">
+      🛒
+      <span id="cart-count" class="absolute -top-2 -right-2 bg-[#008231] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+    </button>
+  </nav>
+</header>
+
+<!-- CART OVERLAY -->
+<div id="cart-overlay" class="hidden fixed inset-0 bg-black/40 z-40" onclick="toggleCart()"></div>
+
+<!-- CART -->
+<div id="cart" class="fixed right-0 top-0 w-80 h-full bg-white shadow-lg z-50 transform translate-x-full transition p-5 flex flex-col">
+  <h2 class="text-xl font-semibold mb-4">Warenkorb</h2>
+  <div id="cart-items" class="flex-1 space-y-3 overflow-auto"></div>
+  <div class="border-t pt-3 font-semibold">
+    Gesamt: CHF <span id="cart-total">0.00</span>
+  </div>
+  <button onclick="checkout()" class="btn-green mt-4 py-2 rounded">Zur Kasse</button>
+</div>
+
+<!-- MAIN -->
+<main class="flex-1 p-6 space-y-12">
+
+<!-- HOME -->
+<section id="home-page" class="text-center">
+  <h2 class="text-3xl font-semibold mb-4">Frische Freilandeier</h2>
+  <p class="text-gray-600 mb-6">Direkt vom Hof aus Othmarsingen</p>
+  <button class="btn-green px-6 py-3 rounded" onclick="showPage('shop')">Jetzt bestellen</button>
+</section>
+
+<!-- SHOP -->
+<section id="shop-page" class="hidden">
+  <h2 class="text-2xl font-semibold mb-6">Unsere Produkte</h2>
+  <div id="products" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact-page" class="hidden max-w-md mx-auto">
+  <h2 class="text-2xl font-semibold mb-4">Kontakt</h2>
+  <form action="https://formspree.io/f/FORM_CONTACT_ID" method="POST" class="space-y-3">
+    <input name="name" placeholder="Name" class="w-full border p-2 rounded" required>
+    <input name="email" type="email" placeholder="E-Mail" class="w-full border p-2 rounded" required>
+    <textarea name="message" placeholder="Nachricht" class="w-full border p-2 rounded" required></textarea>
+    <button class="btn-green w-full py-2 rounded">Absenden</button>
+  </form>
+</section>
+
+<!-- CHECKOUT -->
+<section id="checkout-page" class="hidden max-w-2xl mx-auto space-y-6">
+
+  <h2 class="text-2xl font-semibold">Checkout</h2>
+
+  <!-- SUMMARY -->
+  <div class="bg-white p-4 rounded shadow">
+    <h3 class="font-semibold mb-3">Bestellübersicht</h3>
+    <div id="checkout-summary" class="space-y-2"></div>
+    <div class="border-t mt-3 pt-2 flex justify-between font-semibold">
+      <span>Gesamt</span>
+      <span>CHF <span id="checkout-total">0.00</span></span>
     </div>
-    <nav class="flex flex-wrap gap-2">
-      <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('home')">Home</button>
-      <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('shop')">Shop</button>
-      <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('about')">Über uns</button>
-      <button class="px-3 py-2 rounded hover:bg-gray-200 transition" onclick="showPage('contact')">Kontakt</button>
-      <button class="px-3 py-2 rounded hover:bg-gray-200 transition flex items-center" onclick="toggleCart()">🛒 
-        <span id="cart-count" class="ml-1 bg-[#008231] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
-      </button>
-    </nav>
-  </header>
-
-  <!-- Overlay für Warenkorb -->
-  <div id="cart-overlay" class="hidden fixed inset-0 bg-black bg-opacity-30 z-40" onclick="toggleCart()"></div>
-
-  <!-- Cart -->
-  <div id="cart" class="fixed top-0 right-0 w-80 h-full bg-white shadow-lg p-6 overflow-auto z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
-    <h2 class="text-xl font-semibold mb-4">Warenkorb</h2>
-    <div id="cart-items" class="flex-1 space-y-3 overflow-auto"></div>
-    <div class="mt-4 font-semibold">Gesamt: CHF <span id="cart-total">0.00</span></div>
-    <button class="mt-4 w-full btn-green py-2 rounded" onclick="checkout()">Zur Kasse</button>
   </div>
 
-  <!-- Main Pages -->
-  <main class="p-6 space-y-12 flex-1">
+  <!-- FORM -->
+  <form id="checkout-form" action="https://formspree.io/f/FORM_CHECKOUT_ID" method="POST" class="space-y-3">
+    <input name="name" placeholder="Name" class="w-full border p-2 rounded" required>
+    <input name="email" type="email" placeholder="E-Mail" class="w-full border p-2 rounded" required>
+    <input name="address" placeholder="Adresse" class="w-full border p-2 rounded" required>
 
-    <!-- Home -->
-    <div id="home-page">
-      <h2 class="text-3xl font-semibold text-center mb-4">Frische Freilandeier aus Othmarsingen</h2>
-      <p class="text-center text-gray-600 mb-6">Natürlich aufgezogen, direkt zu Ihnen geliefert.</p>
-      <div class="text-center">
-        <button class="btn-green px-6 py-3 rounded" onclick="showPage('shop')">Jetzt bestellen</button>
-      </div>
+    <div class="flex gap-4">
+      <label><input type="radio" name="payment" value="TWINT" checked> TWINT</label>
+      <label><input type="radio" name="payment" value="Rechnung"> Rechnung</label>
     </div>
 
-    <!-- Shop -->
-    <div id="shop-page" class="hidden">
-      <h2 class="text-2xl font-semibold mb-6">Produkte</h2>
-      <div id="products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <textarea name="order" id="order-field" class="hidden"></textarea>
+    <button class="btn-green w-full py-2 rounded">Bestellung abschicken</button>
+  </form>
+
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-blue-900 text-white p-6 text-sm">
+  <div class="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6">
+    <div>
+      <strong>Savoldi Freiland</strong><br>
+      Frische Freilandeier aus Othmarsingen
     </div>
-
-    <!-- About -->
-    <div id="about-page" class="hidden">
-      <h2 class="text-2xl font-semibold mb-4">Über Savoldi Freiland</h2>
-      <p class="text-gray-700">Regionale Freilandeier aus Othmarsingen, nachhaltig und tierfreundlich produziert.</p>
+    <div>
+      <strong>Kontakt</strong><br>
+      Othmarsingen, Schweiz<br>
+      info@savoldi-freiland.ch
     </div>
-
-    <!-- Contact -->
-    <div id="contact-page" class="hidden max-w-md mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">Kontakt</h2>
-      <form id="contact-form" action="https://formspree.io/f/DEINE_CONTACT_ID" method="POST" class="space-y-4">
-        <input type="text" name="name" placeholder="Name" class="w-full p-2 border rounded" required>
-        <input type="email" name="email" placeholder="E-Mail" class="w-full p-2 border rounded" required>
-        <input type="tel" name="phone" placeholder="Telefon (optional)" class="w-full p-2 border rounded">
-        <textarea name="message" placeholder="Ihre Nachricht" class="w-full p-2 border rounded" required></textarea>
-        <button type="submit" class="btn-green w-full py-2 rounded">Absenden</button>
-      </form>
-      <div id="contact-success" class="hidden mt-3 text-[#008231] font-semibold">Vielen Dank! Wir melden uns.</div>
+    <div>
+      <strong>Öffnungszeiten</strong><br>
+      Mo–Fr 8–18 Uhr<br>
+      Sa 8–14 Uhr
     </div>
+  </div>
+  <p class="text-center mt-4">© 2026 Savoldi Freiland</p>
+</footer>
 
-    <!-- Checkout -->
-    <div id="checkout-page" class="hidden max-w-2xl mx-auto space-y-6">
-      <h2 class="text-2xl font-semibold mb-4">Checkout</h2>
+<script>
+let cart = [];
 
-      <!-- Bestellübersicht -->
-      <div class="bg-white p-4 rounded shadow space-y-3">
-        <h3 class="font-semibold text-lg mb-2">Ihre Bestellung</h3>
-        <div id="checkout-summary" class="space-y-2"></div>
-        <div class="flex justify-between font-semibold pt-2 border-t">
-          <span>Gesamt:</span>
-          <span>CHF <span id="checkout-total">0.00</span></span>
-        </div>
-      </div>
+const products = [
+  { id:1, name:'6er Freilandeier', price:4.50, img:'https://images.unsplash.com/photo-1617635581526-0c6dbd1a7e95?w=400' },
+  { id:2, name:'10er Freilandeier', price:7.00, img:'https://images.unsplash.com/photo-1584270354949-2b720f097319?w=400' },
+  { id:3, name:'30er Freilandeier', price:19.50, img:'https://images.unsplash.com/photo-1617635581526-0c6dbd1a7e95?w=400' },
+  {
+    id:4,
+    name:'Eierabo',
+    price:null,
+    desc:'Wöchentliche Lieferung frischer Eier',
+    img:'https://images.unsplash.com/photo-1589927986089-35812386c32a?w=400',
+    onRequest:true
+  }
+];
 
-      <!-- Checkout-Formular -->
-      <form id="checkout-form" action="https://formspree.io/f/DEINE_CHECKOUT_ID" method="POST" class="space-y-3">
-        <input type="text" name="name" placeholder="Name" class="w-full p-2 border rounded" required>
-        <input type="email" name="email" placeholder="E-Mail" class="w-full p-2 border rounded" required>
-        <input type="tel" name="phone" placeholder="Telefon" class="w-full p-2 border rounded" required>
-        <input type="text" name="address" placeholder="Adresse" class="w-full p-2 border rounded" required>
-        <input type="text" name="city" placeholder="Ort" class="w-full p-2 border rounded" required>
-        <input type="text" name="zip" placeholder="PLZ" class="w-full p-2 border rounded" required>
+const productsEl = document.getElementById('products');
 
-        <div class="flex gap-4">
-          <label class="flex items-center gap-2"><input type="radio" name="payment" value="twint" checked> TWINT</label>
-          <label class="flex items-center gap-2"><input type="radio" name="payment" value="invoice"> Rechnung</label>
-        </div>
+products.forEach(p => {
+  const div = document.createElement('div');
+  div.className = 'bg-white p-4 rounded shadow text-center';
+  div.innerHTML = `
+    <img src="${p.img}" class="product-img mb-3">
+    <h3 class="font-semibold">${p.name}</h3>
+    ${p.price ? `<p>CHF ${p.price.toFixed(2)}</p>` : `<p class="text-[#008231] font-semibold">Preis auf Anfrage</p>`}
+    <button class="btn-green mt-3 px-4 py-2 rounded" onclick="addToCart(${p.id})">
+      ${p.price ? 'In den Warenkorb' : 'Abo anfragen'}
+    </button>
+  `;
+  productsEl.appendChild(div);
+});
 
-        <textarea name="order" id="order-field" class="hidden"></textarea>
-        <button type="submit" class="btn-green w-full py-2 rounded">Bestellung abschließen</button>
-      </form>
+function showPage(page){
+  ['home','shop','contact','checkout'].forEach(p=>document.getElementById(p+'-page').classList.add('hidden'));
+  document.getElementById(page+'-page').classList.remove('hidden');
+}
 
-      <div id="checkout-success" class="hidden mt-3 text-[#008231] font-semibold">Vielen Dank für Ihre Bestellung!</div>
-    </div>
+function toggleCart(){
+  document.getElementById('cart').classList.toggle('translate-x-full');
+  document.getElementById('cart-overlay').classList.toggle('hidden');
+}
 
-  </main>
+function addToCart(id){
+  const p = products.find(p=>p.id===id);
+  const e = cart.find(i=>i.id===id);
+  e ? e.qty++ : cart.push({...p, qty:1});
+  renderCart();
+  toggleCart();
+}
 
-  <!-- Footer -->
-  <footer class="bg-blue-900 text-white mt-auto p-6">
-    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
-      <div>
-        <h3 class="font-semibold text-lg mb-2">Savoldi Freiland</h3>
-        <p>Frische Freilandeier aus Othmarsingen</p>
-      </div>
-      <div>
-        <h3 class="font-semibold text-lg mb-2">Kontakt</h3>
-        <p>Othmarsingen, Schweiz</p>
-        <p><a href="mailto:info@savoldi-freiland.ch" class="underline hover:text-[#008231]">info@savoldi-freiland.ch</a></p>
-      </div>
-      <div>
-        <h3 class="font-semibold text-lg mb-2">Öffnungszeiten</h3>
-        <p>Mo - Fr: 8:00 - 18:00</p>
-        <p>Sa: 8:00 - 14:00</p>
-      </div>
-    </div>
-    <div class="text-center text-xs mt-6">
-      © 2026 Savoldi Freiland. Alle Rechte vorbehalten.
-    </div>
-  </footer>
+function renderCart(){
+  const el = document.getElementById('cart-items');
+  el.innerHTML='';
+  let total=0;
 
-  <script>
-    // Warenkorb & Produkte
-    let cart = [];
-    const products = [
-      { id:1, name:'6er Freilandeier', price:4.50, unit:'6 Stück', desc:'Frische Freilandeier', img:'https://images.unsplash.com/photo-1617635581526-0c6dbd1a7e95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400' },
-      { id:2, name:'10er Freilandeier', price:7.00, unit:'10 Stück', desc:'Frische Freilandeier', img:'https://images.unsplash.com/photo-1584270354949-2b720f097319?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400' },
-      { id:3, name:'30er Freilandeier', price:19.50, unit:'30 Stück', desc:'Vorteilspackung', img:'https://images.unsplash.com/photo-1617635581526-0c6dbd1a7e95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400' }
-    ];
+  cart.forEach(i=>{
+    if(i.price) total+=i.price*i.qty;
+    el.innerHTML+=`
+      <div class="border-b pb-2">
+        <strong>${i.name}</strong><br>
+        ${i.price ? `CHF ${(i.price*i.qty).toFixed(2)}` : '<span class="text-[#008231]">Preis auf Anfrage</span>'}
+      </div>`;
+  });
 
-    const productsContainer = document.getElementById('products');
-    products.forEach(p => {
-      const div = document.createElement('div');
-      div.className = "bg-white p-4 rounded-lg shadow hover:shadow-xl transition flex flex-col items-center text-center";
-      div.innerHTML = `
-        <img src="${p.img}" alt="${p.name}" class="product-img mb-3">
-        <h3 class="font-semibold text-lg mb-1">${p.name}</h3>
-        <p class="text-gray-500 mb-1">${p.unit}</p>
-        <p class="text-gray-600 mb-2">${p.desc}</p>
-        <p class="font-semibold mb-3">CHF ${p.price.toFixed(2)}</p>
-        <button class="btn-green px-4 py-2 rounded" onclick="addToCart(${p.id})">In den Warenkorb</button>
-      `;
-      productsContainer.appendChild(div);
-    });
+  document.getElementById('cart-total').textContent=total.toFixed(2);
+  document.getElementById('cart-count').textContent=cart.reduce((a,b)=>a+b.qty,0);
+}
 
-    function showPage(page) {
-      ['home','shop','about','contact','checkout'].forEach(p=>document.getElementById(p+'-page').classList.add('hidden'));
-      document.getElementById(page+'-page').classList.remove('hidden');
+function checkout(){
+  showPage('checkout');
+  toggleCart();
+  updateCheckoutSummary();
+}
+
+function updateCheckoutSummary(){
+  const el=document.getElementById('checkout-summary');
+  let total=0; el.innerHTML='';
+  cart.forEach(i=>{
+    if(i.price){
+      total+=i.price*i.qty;
+      el.innerHTML+=`<div class="flex justify-between"><span>${i.name} x${i.qty}</span><span>CHF ${(i.price*i.qty).toFixed(2)}</span></div>`;
+    } else {
+      el.innerHTML+=`<div class="flex justify-between text-[#008231]"><span>${i.name}</span><span>Preis auf Anfrage</span></div>`;
     }
+  });
+  document.getElementById('checkout-total').textContent=total.toFixed(2);
+}
 
-    function toggleCart() {
-      const cartDiv = document.getElementById('cart');
-      const overlay = document.getElementById('cart-overlay');
-      cartDiv.classList.toggle('translate-x-full');
-      overlay.classList.toggle('hidden');
-    }
-
-    function addToCart(id) {
-      const product = products.find(p => p.id===id);
-      const existing = cart.find(i=>i.id===id);
-      if(existing) existing.qty++; else cart.push({...product, qty:1});
-      renderCart(); toggleCart();
-    }
-
-    function renderCart() {
-      const container = document.getElementById('cart-items');
-      container.innerHTML=''; let total=0;
-      cart.forEach(item=>{
-        total+=item.price*item.qty;
-        const div=document.createElement('div');
-        div.className="flex justify-between items-center gap-2 border-b pb-2";
-        div.innerHTML=`
-          <div class="flex-1">
-            <span class="font-semibold">${item.name}</span><br>
-            CHF ${item.price.toFixed(2)} x
-            <button class="px-1 bg-gray-200 rounded" onclick="changeQty(${item.id},-1)">-</button>
-            <span class="px-2">${item.qty}</span>
-            <button class="px-1 bg-gray-200 rounded" onclick="changeQty(${item.id},1)">+</button>
-          </div>
-          <button class="text-red-500 font-bold px-2" onclick="removeFromCart(${item.id})">x</button>
-        `;
-        container.appendChild(div);
-      });
-      document.getElementById('cart-total').textContent = total.toFixed(2);
-      document.getElementById('cart-count').textContent = cart.reduce((a,b)=>a+b.qty,0);
-    }
-
-    function removeFromCart(id){cart=cart.filter(i=>i.id!==id);renderCart();}
-    function changeQty(id,delta){const item=cart.find(i=>i.id===id);if(!item)return;item.qty+=delta;if(item.qty<=0)removeFromCart(id);renderCart();}
-
-    // Checkout
-    function checkout(){showPage('checkout');toggleCart();updateCheckoutSummary();}
-    function updateCheckoutSummary(){
-      const summaryDiv=document.getElementById('checkout-summary');
-      const totalEl=document.getElementById('checkout-total');
-      summaryDiv.innerHTML=''; let total=0;
-      cart.forEach(item=>{
-        const itemTotal=item.price*item.qty;
-        total+=itemTotal;
-        const div=document.createElement('div');
-        div.className="flex justify-between items-center";
-        div.innerHTML=`<span>${item.name} x${item.qty}</span><span>CHF ${itemTotal.toFixed(2)}</span>`;
-        summaryDiv.appendChild(div);
-      });
-      totalEl.textContent=total.toFixed(2);
-    }
-
-    document.getElementById('checkout-form').addEventListener('submit', e=>{
-      const orderField=document.getElementById('order-field');
-      orderField.value=cart.map(i=>`${i.name} x${i.qty} = CHF ${(i.price*i.qty).toFixed(2)}`).join('\n');
-      setTimeout(()=>{
-        document.getElementById('checkout-success').classList.remove('hidden');
-        cart=[]; renderCart(); document.getElementById('checkout-form').reset();
-        showPage('home');
-      },500);
-    });
-
-    document.getElementById('contact-form').addEventListener('submit',e=>{
-      setTimeout(()=>{
-        document.getElementById('contact-success').classList.remove('hidden');
-        document.getElementById('contact-form').reset();
-      },500);
-    });
-  </script>
+document.getElementById('checkout-form').addEventListener('submit',()=>{
+  document.getElementById('order-field').value =
+    cart.map(i=>i.price
+      ? `${i.name} x${i.qty}`
+      : `${i.name} – Abo (wöchentlich, Preis auf Anfrage)`
+    ).join('\n');
+});
+</script>
 
 </body>
 </html>
