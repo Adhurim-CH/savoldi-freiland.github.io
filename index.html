@@ -19,7 +19,7 @@
       position: absolute;
       top:0.5rem;
       left:0.5rem;
-      background:#008231;
+      background:##FF3030;
       color:white;
       font-size:0.75rem;
       font-weight:600;
@@ -165,7 +165,7 @@ products.forEach(p => {
     ${
       p.onRequest
       ? `
-        <label class="text-sm">Größe:</label>
+        <label class="text-sm">Grösse:</label>
         <select id="size-${p.id}" class="w-full border p-1 rounded mb-2">
           <option>6er</option>
           <option>10er</option>
@@ -209,7 +209,7 @@ function renderCart(){
     el.innerHTML+=`
       <div class="border-b pb-2">
         <strong>${i.name}</strong>
-        ${i.size?`<div class="text-sm text-gray-500">Größe: ${i.size}, wöchentlich</div>`:''}
+        ${i.size?`<div class="text-sm text-gray-500">Grösse: ${i.size}, wöchentlich</div>`:''}
         <div>${i.price?`CHF ${(i.price*i.qty).toFixed(2)}`:'<span class="text-[#008231]">Preis auf Anfrage</span>'}</div>
       </div>`;
   });
@@ -236,3 +236,4 @@ document.getElementById('checkout-form').addEventListener('submit',()=>{
 
 </body>
 </html>
+
