@@ -246,7 +246,7 @@ function updateCheckout(){
 document.getElementById('checkout-form').addEventListener('submit',function(e){
   e.preventDefault();
   document.getElementById('order-field').value=cart.map(i=>i.price?`${i.name} x${i.qty}`:`${i.name} (${i.size}, wöchentlich) – Preis auf Anfrage`).join('\n');
-  fetch("https://formspree.io/f/FORM_CHECKOUT_ID", {
+  fetch("https://formspree.io/f/xlgdqjby", {
     method:"POST", headers:{"Accept":"application/json"}, body:new FormData(this)
   }).then(res=>{
     if(res.ok){
@@ -260,7 +260,7 @@ document.getElementById('checkout-form').addEventListener('submit',function(e){
 // Kontakt Formular AJAX
 document.getElementById('contact-form').addEventListener('submit',function(e){
   e.preventDefault();
-  fetch("https://formspree.io/f/FORM_CONTACT_ID", {
+  fetch("https://formspree.io/f/xlgdqjby", {
     method:"POST", headers:{"Accept":"application/json"}, body:new FormData(this)
   }).then(res=>{
     if(res.ok){
@@ -273,3 +273,4 @@ document.getElementById('contact-form').addEventListener('submit',function(e){
 
 </body>
 </html>
+
