@@ -10,15 +10,16 @@
     .btn-green { background:#008231; color:white; }
     .btn-green:hover { background:#00691a; }
     .product-img { height:160px; width:100%; object-fit:cover; border-radius:0.75rem; }
+    .logo-img { height:50px; object-fit:contain; }
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
 <!-- HEADER -->
 <header class="bg-white shadow sticky top-0 z-50 p-4 flex justify-between items-center">
-  <div>
-    <h1 class="text-2xl font-light">🌾 Savoldi Freiland</h1>
-    <p class="text-sm text-gray-500">Freilandeier aus Othmarsingen</p>
+  <div class="flex items-center gap-3">
+    <img src="images/logo.png" alt="Savoldi Freiland" class="logo-img">
+    <p class="text-gray-500 text-sm hidden sm:block">Freilandeier aus Othmarsingen</p>
   </div>
   <nav class="flex gap-3 items-center">
     <button onclick="showPage('home')">Home</button>
