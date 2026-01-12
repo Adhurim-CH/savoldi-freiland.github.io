@@ -12,25 +12,32 @@
   .btn-green {
     background:#008231;
     color:white;
-    transition:background 0.2s, box-shadow 0.2s;
+    transition:background 0.2s;
   }
   .btn-green:hover { background:#00691a; }
+
   .btn-green:focus-visible {
     outline:none;
-    box-shadow:0 0 0 3px rgba(0,130,49,.4);
+    box-shadow:0 0 0 2px rgba(0,130,49,.35);
   }
+
+  .btn-cart:focus-visible {
+    box-shadow:none;
+  }
+
   .product-img {
     height:160px;
     width:100%;
     object-fit:cover;
     border-radius:0.75rem;
   }
+
   .logo-img {
     height:65px;
     width:auto;
-    display:block;
     object-fit:contain;
   }
+
   .badge {
     position:absolute;
     top:0.5rem;
@@ -47,42 +54,57 @@
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
+<!-- HEADER -->
 <header class="bg-white shadow sticky top-0 z-50 p-3 flex justify-between items-center">
-  <img src="images/logo-new.png" alt="Savoldi Freiland Logo" class="logo-img">
+  <img src="images/logo-new.png" alt="Savoldi Freiland" class="logo-img">
+
   <nav class="flex gap-2 sm:gap-3 items-center">
     <button onclick="showPage('home')" class="btn-green px-3 py-1 rounded">Home</button>
     <button onclick="showPage('shop')" class="btn-green px-3 py-1 rounded">Shop</button>
     <button onclick="showPage('contact')" class="btn-green px-3 py-1 rounded">Kontakt</button>
-    <button onclick="toggleCart()" class="relative btn-green px-2 py-1 rounded" aria-label="Warenkorb öffnen">
+
+    <button onclick="toggleCart()"
+      class="relative btn-green btn-cart px-2 py-1 rounded"
+      aria-label="Warenkorb öffnen">
       🛒
-      <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-[#008231] text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
+      <span id="cart-count"
+        class="absolute -top-2 -right-2 bg-white text-[#008231] text-xs w-5 h-5 rounded-full flex items-center justify-center">
+        0
+      </span>
     </button>
   </nav>
 </header>
 
-<div id="cart-overlay" class="hidden fixed inset-0 bg-black/40 z-40" aria-hidden="true" onclick="toggleCart()"></div>
+<!-- CART -->
+<div id="cart-overlay" class="hidden fixed inset-0 bg-black/40 z-40" onclick="toggleCart()"></div>
 
-<div id="cart" class="fixed right-0 top-0 w-11/12 sm:w-80 h-full bg-white shadow-lg z-50 transform translate-x-full transition p-5 flex flex-col overflow-hidden">
+<div id="cart"
+  class="fixed right-0 top-0 w-11/12 sm:w-80 h-full bg-white shadow-lg z-50 transform translate-x-full transition p-5 flex flex-col">
   <h2 class="text-xl font-semibold mb-4">Warenkorb</h2>
   <div id="cart-items" class="flex-1 space-y-3 overflow-y-auto"></div>
   <div class="border-t pt-3 font-semibold">Gesamt: CHF <span id="cart-total">0.00</span></div>
   <button onclick="checkout()" class="btn-green mt-4 py-2 rounded">Zur Kasse</button>
 </div>
 
+<!-- MAIN -->
 <main class="flex-1 p-4 sm:p-6 space-y-12">
 
-<section id="home-page" class="relative text-white text-center h-96 flex flex-col justify-center items-center"
+<!-- HOME -->
+<section id="home-page"
+  class="relative text-white text-center h-96 flex flex-col justify-center items-center"
   style="background-image:url('images/home-banner.jpg'); background-size:cover; background-position:center;">
   <h2 class="text-4xl font-bold mb-3 drop-shadow-lg">Frische Freilandeier</h2>
   <p class="text-lg mb-6 drop-shadow-md">Regional, nachhaltig & persönlich</p>
   <button class="btn-green px-6 py-3 rounded" onclick="showPage('shop')">Jetzt bestellen</button>
 </section>
 
+<!-- SHOP -->
 <section id="shop-page" class="hidden">
   <h2 class="text-2xl font-semibold mb-6">Unsere Produkte</h2>
   <div id="products" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact-page" class="hidden max-w-md mx-auto">
   <h2 class="text-2xl font-semibold mb-4">Kontakt</h2>
   <form id="contact-form" action="https://formspree.io/f/FORM_CONTACT_ID" method="POST" class="space-y-3">
@@ -91,9 +113,12 @@
     <textarea name="message" placeholder="Nachricht" required class="w-full border p-2 rounded"></textarea>
     <button class="btn-green w-full py-2 rounded">Absenden</button>
   </form>
-  <div id="contact-success" class="hidden text-[#008231] mt-2 font-semibold">Vielen Dank für deine Anfrage!</div>
+  <div id="contact-success" class="hidden text-[#008231] mt-2 font-semibold">
+    Vielen Dank für deine Anfrage!
+  </div>
 </section>
 
+<!-- CHECKOUT -->
 <section id="checkout-page" class="hidden max-w-2xl mx-auto space-y-6">
   <h2 class="text-2xl font-semibold">Checkout</h2>
 
@@ -120,13 +145,39 @@
     <button class="btn-green w-full py-2 rounded">Bestellung abschicken</button>
   </form>
 
-  <div id="checkout-success" class="hidden text-[#008231] font-semibold mt-2">Vielen Dank für deine Bestellung!</div>
+  <div id="checkout-success" class="hidden text-[#008231] font-semibold mt-2">
+    Vielen Dank für deine Bestellung!
+  </div>
 </section>
 
 </main>
 
+<!-- FOOTER -->
 <footer class="bg-[#008231] text-white p-6 text-sm">
-  <p class="text-center">© 2026 Savoldi Freiland · realisiert von TwoNet</p>
+  <div class="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6">
+    <div>
+      <h4 class="font-semibold flex items-center gap-1"><i data-feather="home"></i> Über uns</h4>
+      <p>Savoldi Freiland</p>
+      <p>Ebnet 15</p>
+      <p>5504 Othmarsingen</p>
+    </div>
+    <div>
+      <h4 class="font-semibold flex items-center gap-1"><i data-feather="mail"></i> Kontakt</h4>
+      <p>info@savoldi-freiland.ch</p>
+      <p>+41 79 797 79 79</p>
+    </div>
+    <div>
+      <h4 class="font-semibold flex items-center gap-1"><i data-feather="clock"></i> Öffnungszeiten</h4>
+      <p>Mo–Fr: 8:00 – 18:00 Uhr</p>
+      <p>Sa–So: Geschlossen</p>
+    </div>
+    <div>
+      <h4 class="font-semibold flex items-center gap-1"><i data-feather="credit-card"></i> Zahlung</h4>
+      <p>- Rechnung</p>
+      <p>- TWINT</p>
+    </div>
+  </div>
+  <p class="text-center mt-4">© 2026 Savoldi Freiland · realisiert von TwoNet</p>
 </footer>
 
 <script>
@@ -173,6 +224,7 @@ function showPage(p){
 
 const cartEl=document.getElementById('cart');
 const overlay=document.getElementById('cart-overlay');
+
 function toggleCart(){
   cartEl.classList.toggle('translate-x-full');
   overlay.classList.toggle('hidden');
@@ -181,34 +233,66 @@ function toggleCart(){
 function addToCart(id){
   const p=products.find(x=>x.id===id);
   const e=cart.find(x=>x.id===id);
-  e?e.qty++:cart.push({...p,qty:1});
+  e ? e.qty++ : cart.push({...p,qty:1});
   renderCart();
   toggleCart();
 }
 
 function addAbo(id){
   const size=document.getElementById(`size-${id}`).value;
-  cart.push({ id, name:'Eierabo', size, qty:1, price:null });
+  cart.push({id,name:'Eierabo',size,qty:1,price:null});
   renderCart();
   toggleCart();
+}
+
+function changeQty(index,delta){
+  cart[index].qty+=delta;
+  if(cart[index].qty<=0) cart.splice(index,1);
+  renderCart();
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  renderCart();
 }
 
 function renderCart(){
   let total=0;
   const el=document.getElementById('cart-items');
   el.innerHTML='';
-  cart.forEach(i=>{
+
+  cart.forEach((i,index)=>{
     if(i.price) total+=i.price*i.qty;
+
     el.innerHTML+=`
-      <div class="border-b pb-2">
+      <div class="border-b pb-2 space-y-1">
         <strong>${i.name}</strong>
-        ${i.size?`<div class="text-sm text-gray-500">Grösse: ${i.size}, wöchentlich</div>`:''}
-        <div>${i.price?`CHF ${(i.price*i.qty).toFixed(2)}`:'<span class="text-[#008231]">Preis auf Anfrage</span>'}</div>
-      </div>`;
+
+        ${i.size?`
+          <div class="text-sm text-gray-500">Grösse: ${i.size}, wöchentlich</div>
+        `:`
+          <div class="flex items-center gap-2">
+            <button onclick="changeQty(${index},-1)" class="px-2 border rounded">−</button>
+            <span>${i.qty}</span>
+            <button onclick="changeQty(${index},1)" class="px-2 border rounded">+</button>
+            <button onclick="removeItem(${index})" class="ml-auto text-red-500 text-sm">🗑️ Entfernen</button>
+          </div>
+        `}
+
+        <div>
+          ${i.price
+            ? `CHF ${(i.price*i.qty).toFixed(2)}`
+            : `<span class="text-[#008231]">Preis auf Anfrage</span>`
+          }
+        </div>
+      </div>
+    `;
   });
+
   document.getElementById('cart-total').textContent=total.toFixed(2);
   document.getElementById('cart-count').textContent=cart.reduce((a,b)=>a+b.qty,0);
 }
 </script>
+
 </body>
 </html>
