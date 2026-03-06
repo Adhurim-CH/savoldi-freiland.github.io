@@ -15,25 +15,26 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --forest:    #0f2318;
-  --forest-m:  #1a3a28;
-  --forest-l:  #234d35;
-  --moss:      #3d6b4a;
-  --leaf:      #4e8a5e;
-  --sage:      #7aab87;
-  --mist:      #c4d9c9;
-  --foam:      #eaf3ec;
-  --parchment: #f8f5ef;
-  --cream:     #fdfbf7;
-  --sand:      #f0ead8;
-  --sand2:     #e5dcc6;
-  --warm-line: #e8e0d0;
-  --ink:       #1a1710;
-  --ink2:      #3c3829;
-  --muted:     #7a7360;
-  --gold:      #c9a44a;
-  --gold-l:    #e8c97a;
-  --red:       #a51d1d;
+  /* ── Original CI Colours ── */
+  --forest:    #14532d;  /* = g700 */
+  --forest-m:  #166534;  /* = g600 */
+  --forest-l:  #1d7a3e;  /* = g500 */
+  --moss:      #22a84f;  /* = g400 */
+  --leaf:      #22a84f;
+  --sage:      #4ade80;  /* light accent */
+  --mist:      #bbf7d0;  /* = g200 */
+  --foam:      #dcfce7;  /* = g100 */
+  --parchment: #f0fdf4;  /* = g50  */
+  --cream:     #faf8f4;
+  --sand:      #f2ece0;
+  --sand2:     #e8dfd0;
+  --warm-line: #e8e2d8;
+  --ink:       #18160f;
+  --ink2:      #3d3a30;
+  --muted:     #7a7060;
+  --gold:      #166534;  /* reuse g600 for "gold" accents → stays green */
+  --gold-l:    #22a84f;  /* g400 */
+  --red:       #b91c1c;
   --white:     #ffffff;
 
   --hdr-h:     72px;
@@ -167,14 +168,14 @@ button { font-family: inherit; cursor: pointer; }
 }
 .btn-ghost:hover { background: rgba(255,255,255,.22); }
 .btn-gold {
-  background: linear-gradient(135deg, var(--gold) 0%, #b8913e 100%);
-  color: var(--forest);
+  background: var(--forest-m);
+  color: #fff;
   font-weight: 600;
-  box-shadow: 0 2px 12px rgba(201,164,74,.35);
+  box-shadow: 0 2px 12px rgba(22,101,52,.3);
 }
 .btn-gold:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(201,164,74,.45);
+  box-shadow: 0 6px 24px rgba(22,101,52,.4);
 }
 .btn-lg   { font-size: 1rem; padding: .85rem 2.25rem; }
 .btn-full { width: 100%; }
@@ -515,10 +516,8 @@ main { flex: 1; width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0
 }
 .hero-title em { font-style: italic; color: rgba(255,255,255,.75); }
 .hero-title .gold-word {
-  background: linear-gradient(135deg, var(--gold-l) 0%, var(--gold) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-style: italic;
+  color: rgba(255,255,255,.82);
 }
 .hero-sub {
   font-size: clamp(.88rem, 1.4vw, 1.05rem);
@@ -1059,7 +1058,7 @@ main { flex: 1; width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0
 footer { background: var(--forest); margin-top: 6rem; }
 .footer-accent {
   height: 3px;
-  background: linear-gradient(90deg, var(--forest-l) 0%, var(--gold) 50%, var(--forest-l) 100%);
+  background: linear-gradient(90deg, var(--forest-l) 0%, var(--moss) 50%, var(--forest-l) 100%);
   background-size: 200% 100%;
   animation: gradShift 6s ease infinite;
 }
@@ -1209,7 +1208,7 @@ footer { background: var(--forest); margin-top: 6rem; }
       <h1 class="hero-title">Frische Eier,<br><em>direkt vom <span class="gold-word">Hof.</span></em></h1>
       <p class="hero-sub">Regional, nachhaltig &amp; persönlich — täglich frisch für Sie und Ihre Familie gesammelt.</p>
       <div class="hero-actions">
-        <button class="btn btn-gold btn-lg" onclick="showPage('shop')">Jetzt bestellen &nbsp;→</button>
+        <button class="btn btn-primary btn-lg" onclick="showPage('shop')">Jetzt bestellen &nbsp;→</button>
         <button class="btn btn-ghost" onclick="showPage('contact')">Kontakt aufnehmen</button>
       </div>
       <div class="hero-stats">
