@@ -23,11 +23,13 @@
   --serif:'Cormorant',Georgia,serif;
   --sans:'Outfit',system-ui,sans-serif;
 
+  /* fluid spacing — scales from mobile → 4K */
   --hdr:clamp(60px,8vh,80px);
   --pad:clamp(1rem,4vw,4rem);
   --max:min(1400px,96vw);
   --gap:clamp(.875rem,1.5vw,1.5rem);
 
+  /* fluid type scale */
   --text-xs:  clamp(.65rem,.7vw + .3rem,.75rem);
   --text-sm:  clamp(.78rem,.6vw + .45rem,.92rem);
   --text-base:clamp(.875rem,.5vw + .6rem,1.05rem);
@@ -439,14 +441,22 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
 .page-anim{animation:pageIn .28s var(--ease) both}
 
 /* ── RESPONSIVE BREAKPOINTS ─────────────────── */
+
+/* Large desktop / 4K: cap font sizes, ensure generous spacing */
 @media(min-width:1800px){
   :root{--pad:clamp(3rem,5vw,6rem)}
   .footer-main{grid-template-columns:1.8fr repeat(3,1fr)}
   #home-features{border-radius:var(--r-2xl)}
 }
+
+/* Standard desktop (1280–1800px) — defaults apply well */
+
+/* 13" laptop / small desktop (900–1280px) */
 @media(max-width:1280px){
   .products-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
 }
+
+/* Tablet landscape (760–900px) */
 @media(max-width:900px){
   .footer-main{grid-template-columns:1fr 1fr}
   .footer-brand{grid-column:1/-1}
@@ -455,6 +465,8 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
   .feat-item:nth-child(3){border-top:1px solid var(--line);border-right:1px solid var(--line)}
   .feat-item:nth-child(4){border-top:1px solid var(--line);border-right:none}
 }
+
+/* Tablet portrait (600–760px) */
 @media(max-width:760px){
   .contact-grid{grid-template-columns:1fr}
   .products-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
@@ -462,6 +474,8 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
   .products-grid .product-card:first-child .product-img-wrap{height:clamp(175px,35vw,220px)}
   .products-grid .product-card:first-child .product-name{font-size:clamp(1.2rem,3vw,1.5rem)}
 }
+
+/* Mobile (< 600px) */
 @media(max-width:600px){
   :root{--hdr:clamp(56px,10vh,68px)}
   .nav-btn{padding:.38rem .5rem;letter-spacing:.04em}
@@ -474,9 +488,9 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
   .products-grid .product-card:first-child{grid-column:span 1}
   .footer-main{grid-template-columns:1fr}
   .footer-brand{grid-column:auto}
-  #checkout-page .co-card [style*="grid-template-columns:1fr 1fr"],
-  #checkout-page .co-card [style*="grid-template-columns:1fr 2fr"]{grid-template-columns:1fr!important}
 }
+
+/* Small mobile (< 380px) */
 @media(max-width:380px){
   .payment-grid{grid-template-columns:1fr}
   .hero-stats{gap:1.25rem}
@@ -551,7 +565,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
     </div>
   </section>
 
-  <!-- FEATURES -->
+  <!-- FEATURES — nur auf Home sichtbar -->
   <div id="home-features">
     <div class="feat-item rv d1">
       <div class="feat-icon">🥚</div>
@@ -585,7 +599,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
     </div>
     <div class="contact-grid">
       <div class="form-card rv">
-        <form id="contact-form" action="https://formspree.io/f/xlgdqjby" method="POST">
+        <form id="contact-form" action="https://formspree.io/f/FORM_CONTACT_ID" method="POST">
           <div class="form-group">
             <label class="form-label">Dein Name</label>
             <input name="name" placeholder="Max Mustermann" required class="form-input">
@@ -612,7 +626,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
         <div>
           <p class="ci-label">E-Mail &amp; Telefon</p>
           <p class="ci-value">
-            <a href="/cdn-cgi/l/email-protection#deb7b0b8b19eadbfa8b1b2bab7f3b8acbbb7b2bfb0baf0bdb6"><span class="__cf_email__" data-cfemail="f29b9c949db28193849d9e969bdf9480979b9e939c96dc919a">[email&#160;protected]</span></a>
+            <a href="mailto:info@savoldi-freiland.ch">info@savoldi-freiland.ch</a>
             <a href="tel:+41797977979">+41 79 797 79 79</a>
           </p>
         </div>
@@ -644,34 +658,18 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
     </div>
     <div class="co-card">
       <h3>Ihre Angaben</h3>
-      <form id="checkout-form" action="https://formspree.io/f/xlgdqjby" method="POST">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
-          <div class="form-group">
-            <label class="form-label">Vorname</label>
-            <input name="vorname" placeholder="Max" required class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Nachname</label>
-            <input name="nachname" placeholder="Mustermann" required class="form-input">
-          </div>
+      <form id="checkout-form" action="https://formspree.io/f/FORM_CHECKOUT_ID" method="POST">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input name="name" placeholder="Max Mustermann" required class="form-input">
         </div>
         <div class="form-group">
           <label class="form-label">E-Mail</label>
           <input name="email" type="email" placeholder="max@muster.ch" required class="form-input">
         </div>
         <div class="form-group">
-          <label class="form-label">Strasse &amp; Hausnummer</label>
-          <input name="strasse" placeholder="Musterstrasse 12" required class="form-input">
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 2fr;gap:var(--gap)">
-          <div class="form-group">
-            <label class="form-label">PLZ</label>
-            <input name="plz" placeholder="5000" required class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Ort</label>
-            <input name="ort" placeholder="Aarau" required class="form-input">
-          </div>
+          <label class="form-label">Lieferadresse</label>
+          <input name="address" placeholder="Strasse Nr, PLZ Ort" required class="form-input">
         </div>
         <div class="form-group" style="margin-bottom:1.5rem">
           <label class="form-label">Zahlungsmethode</label>
@@ -691,7 +689,6 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
           </div>
         </div>
         <textarea name="order" id="order-field" class="hidden"></textarea>
-        <input type="hidden" name="lieferadresse">
         <button class="btn btn-primary btn-full btn-lg" type="submit">Bestellung abschicken &nbsp;→</button>
       </form>
       <div id="checkout-success" class="success-toast">
@@ -715,7 +712,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
     </div>
     <div class="footer-col">
       <h4>Kontakt</h4>
-      <a href="/cdn-cgi/l/email-protection#5f363139301f2c3e2930333b3672392d3a36333e313b713c37"><span class="__cf_email__" data-cfemail="335a5d555c734052455c5f575a1e5541565a5f525d571d505b">[email&#160;protected]</span></a>
+      <a href="mailto:info@savoldi-freiland.ch">info@savoldi-freiland.ch</a>
       <a href="tel:+41797977979">+41 79 797 79 79</a>
     </div>
     <div class="footer-col">
@@ -728,7 +725,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
   <div class="footer-bottom">© 2026 Savoldi Freiland &nbsp;·&nbsp; realisiert von TwoNet</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 'use strict';
 
 /* SCROLL REVEAL */
@@ -900,7 +897,6 @@ function checkout(){
   ).join('\n');
   showPage('checkout');
 }
-}
 
 /* FORM HANDLERS */
 document.getElementById('contact-form').addEventListener('submit',async function(e){
@@ -909,21 +905,22 @@ document.getElementById('contact-form').addEventListener('submit',async function
   btn.disabled=true;btn.innerHTML='Wird gesendet…';
   try{
     const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
-    if(res.ok){
-      this.reset();
-      window.location.href='danke.html';
-    }
+    if(res.ok){this.reset();document.getElementById('contact-success').classList.add('show')}
+  }catch(_){}
+  btn.disabled=false;btn.innerHTML=orig;
+});
+document.getElementById('checkout-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const btn=this.querySelector('button[type=submit]'),orig=btn.innerHTML;
+  btn.disabled=true;btn.innerHTML='Wird gesendet…';
+  try{
+    const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
+    if(res.ok){this.reset();cart=[];renderCart();document.getElementById('checkout-success').classList.add('show')}
   }catch(_){}
   btn.disabled=false;btn.innerHTML=orig;
 });
 
-document.getElementById('checkout-form').addEventListener('submit',async function(e){
-  e.preventDefault();
-  /* Adresse aus Einzelfeldern zusammensetzen */
-  const v=this.querySelector('[name=vorname]').value.trim();
-  const n=this.querySelector('[name=nachname]').value.trim();
-  const s=this.querySelector('[name=strasse]').value.trim();
-  const p=this.querySelector('[name=plz]').value.trim();
-  const o=this.querySelector('[name=ort]').value.trim();
-  this.querySelector('[name=lieferadresse]').value=`${v} ${n} · ${s} · ${p} ${o}`;
-  const btn=this.querySelector('button[type=submit]'),orig=btn.innerHTM
+renderCart();
+</script>
+</body>
+</html>
