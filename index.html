@@ -905,7 +905,7 @@ document.getElementById('contact-form').addEventListener('submit',async function
   btn.disabled=true;btn.innerHTML='Wird gesendet…';
   try{
     const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
-    if(res.ok){ window.location.href = 'danke.html'; }
+    if(res.ok){ this.reset(); cart=[]; renderCart(); window.location.href='danke.html'; }
   }catch(_){}
   btn.disabled=false;btn.innerHTML=orig;
 });
