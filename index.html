@@ -15,21 +15,19 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --g700:#14532d;--g600:#166534;--g500:#1d7a3e;--g400:#22a84f;
-  --g100:#dcfce7;--g50:#f0fdf4;
+  --g700:#054d14;--g600:#07681b;--g500:#098a23;--g400:#0db02e;
+  --g100:#d4f5db;--g50:#edfaf0;
   --cream:#faf8f4;--sand:#f2ece0;--sand2:#e8dfd0;--line:#e8e2d8;
   --ink:#18160f;--ink2:#3d3a30;--muted:#857e6e;
   --red:#b91c1c;--white:#fff;
   --serif:'Cormorant',Georgia,serif;
   --sans:'Outfit',system-ui,sans-serif;
 
-  /* fluid spacing — scales from mobile → 4K */
   --hdr:clamp(60px,8vh,80px);
   --pad:clamp(1rem,4vw,4rem);
   --max:min(1400px,96vw);
   --gap:clamp(.875rem,1.5vw,1.5rem);
 
-  /* fluid type scale */
   --text-xs:  clamp(.65rem,.7vw + .3rem,.75rem);
   --text-sm:  clamp(.78rem,.6vw + .45rem,.92rem);
   --text-base:clamp(.875rem,.5vw + .6rem,1.05rem);
@@ -65,11 +63,8 @@ button{font-family:inherit;cursor:pointer}
 
 /* ── FLOATING EGGS ──────────────────────────── */
 .egg-bg{
-  position:fixed;
-  pointer-events:none;
-  z-index:0;
-  opacity:.18;
-  filter:drop-shadow(0 4px 12px rgba(0,0,0,.08));
+  position:fixed;pointer-events:none;z-index:0;
+  opacity:.18;filter:drop-shadow(0 4px 12px rgba(0,0,0,.08));
   animation:eggFloat linear infinite;
 }
 .egg-bg:nth-child(1){font-size:clamp(3.5rem,6vw,7rem);top:8%;left:5%;animation-duration:18s;animation-delay:0s}
@@ -106,8 +101,8 @@ button{font-family:inherit;cursor:pointer}
   cursor:pointer;white-space:nowrap;
 }
 .btn:active{transform:scale(.97)}
-.btn-primary{background:var(--g600);color:#fff;box-shadow:0 1px 4px rgba(22,101,52,.3),0 4px 14px rgba(22,101,52,.15)}
-.btn-primary:hover{background:var(--g700);transform:translateY(-1px);box-shadow:0 4px 18px rgba(22,101,52,.35)}
+.btn-primary{background:var(--g600);color:#fff;box-shadow:0 1px 4px rgba(7,104,27,.3),0 4px 14px rgba(7,104,27,.15)}
+.btn-primary:hover{background:var(--g700);transform:translateY(-1px);box-shadow:0 4px 18px rgba(7,104,27,.35)}
 .btn-outline{background:transparent;color:var(--g600);border:1.5px solid var(--g600)}
 .btn-outline:hover{background:var(--g50)}
 .btn-ghost{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;backdrop-filter:blur(8px)}
@@ -128,11 +123,7 @@ header{
   animation:fadeIn .5s ease both;
 }
 .logo-wrap{display:flex;align-items:center;cursor:pointer;flex-shrink:0}
-.logo-img{
-  height:clamp(38px,5vh,52px);
-  width:auto;object-fit:contain;
-  transition:opacity .2s,transform .3s var(--spring);
-}
+.logo-img{height:clamp(38px,5vh,52px);width:auto;object-fit:contain;transition:opacity .2s,transform .3s var(--spring)}
 .logo-wrap:hover .logo-img{opacity:.75;transform:scale(1.04)}
 
 .header-nav{display:flex;align-items:center;gap:.25rem}
@@ -141,8 +132,7 @@ header{
   letter-spacing:.06em;text-transform:uppercase;
   color:var(--muted);background:transparent;border:none;
   padding:clamp(.38rem,.7vh,.55rem) clamp(.6rem,1.2vw,1rem);
-  border-radius:var(--r-full);
-  transition:color .15s,background .15s;
+  border-radius:var(--r-full);transition:color .15s,background .15s;
 }
 .nav-btn:hover{color:var(--ink);background:var(--sand)}
 .nav-btn.active{color:var(--g700);background:var(--g50);font-weight:600}
@@ -154,11 +144,11 @@ header{
   background:var(--g600);color:#fff;
   font-size:clamp(.85rem,1.1vw,1.05rem);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 10px rgba(22,101,52,.3);
+  box-shadow:0 2px 10px rgba(7,104,27,.3);
   transition:background .15s,transform .2s var(--spring),box-shadow .15s;
   flex-shrink:0;margin-left:.75rem;
 }
-.cart-btn:hover{background:var(--g700);transform:scale(1.1);box-shadow:0 4px 18px rgba(22,101,52,.38)}
+.cart-btn:hover{background:var(--g700);transform:scale(1.1);box-shadow:0 4px 18px rgba(7,104,27,.38)}
 .cart-btn:active{transform:scale(.92)}
 #cart-count{
   position:absolute;top:-5px;right:-5px;
@@ -235,7 +225,6 @@ main{flex:1;width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
   background:linear-gradient(to top,rgba(6,18,10,.93) 0%,rgba(6,18,10,.55) 35%,rgba(6,18,10,.12) 65%,transparent 100%);
 }
 .hero-inner{position:relative;z-index:1;max-width:min(680px,80%)}
-
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:.6rem;
   font-family:var(--sans);font-size:var(--text-xs);font-weight:500;letter-spacing:.2em;text-transform:uppercase;
@@ -243,32 +232,21 @@ main{flex:1;width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
   animation:riseUp .7s .05s var(--ease) both;
 }
 .hero-line{width:30px;height:1px;background:rgba(255,255,255,.3);flex-shrink:0}
-
 .hero-title{
-  font-family:var(--serif);
-  font-size:var(--text-hero);
-  font-weight:600;line-height:1.0;
-  color:#fff;letter-spacing:-.01em;
-  margin-bottom:clamp(.875rem,2vh,1.5rem);
+  font-family:var(--serif);font-size:var(--text-hero);font-weight:600;line-height:1.0;
+  color:#fff;letter-spacing:-.01em;margin-bottom:clamp(.875rem,2vh,1.5rem);
   animation:riseUp .7s .15s var(--ease) both;
 }
 .hero-title em{font-style:italic;color:rgba(255,255,255,.72)}
-
 .hero-sub{
-  font-size:clamp(.875rem,1.2vw,1.1rem);
-  color:rgba(255,255,255,.55);line-height:1.75;
-  margin-bottom:clamp(1.5rem,3.5vh,2.5rem);
-  max-width:420px;font-weight:300;
+  font-size:clamp(.875rem,1.2vw,1.1rem);color:rgba(255,255,255,.55);line-height:1.75;
+  margin-bottom:clamp(1.5rem,3.5vh,2.5rem);max-width:420px;font-weight:300;
   animation:riseUp .7s .25s var(--ease) both;
 }
-.hero-actions{
-  display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;
-  animation:riseUp .7s .35s var(--ease) both;
-}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;animation:riseUp .7s .35s var(--ease) both}
 .hero-stats{
   display:flex;gap:clamp(1.75rem,4vw,3.5rem);
-  margin-top:clamp(2rem,5vh,4rem);
-  padding-top:clamp(1.25rem,3vh,2rem);
+  margin-top:clamp(2rem,5vh,4rem);padding-top:clamp(1.25rem,3vh,2rem);
   border-top:1px solid rgba(255,255,255,.12);
   animation:riseUp .7s .45s var(--ease) both;
 }
@@ -277,10 +255,8 @@ main{flex:1;width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
 
 /* ── FEATURES ───────────────────────────────── */
 #home-features{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  border:1px solid var(--line);
-  border-radius:var(--r-xl);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--line);border-radius:var(--r-xl);
   overflow:hidden;margin:var(--gap) 0 0;
   background:var(--white);box-shadow:var(--sh1);
 }
@@ -293,8 +269,7 @@ main{flex:1;width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
 .feat-item:hover{background:var(--g50)}
 .feat-icon{
   width:clamp(36px,3.5vw,44px);height:clamp(36px,3.5vw,44px);
-  border-radius:var(--r-md);
-  background:var(--g50);border:1px solid var(--g100);
+  border-radius:var(--r-md);background:var(--g50);border:1px solid var(--g100);
   display:flex;align-items:center;justify-content:center;
   font-size:clamp(1rem,1.2vw,1.2rem);flex-shrink:0;
   transition:transform .3s var(--spring),background .2s;
@@ -364,10 +339,10 @@ main{flex:1;width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
   padding:clamp(.55rem,1.1vh,.75rem) clamp(1rem,1.8vw,1.4rem);
   font-family:var(--sans);font-size:var(--text-sm);font-weight:500;letter-spacing:.02em;
   cursor:pointer;white-space:nowrap;
-  box-shadow:0 2px 8px rgba(22,101,52,.25);
+  box-shadow:0 2px 8px rgba(7,104,27,.25);
   transition:background .18s,transform .18s var(--ease),box-shadow .18s;
 }
-.add-btn:hover{background:var(--g700);transform:translateY(-1px);box-shadow:0 4px 16px rgba(22,101,52,.32)}
+.add-btn:hover{background:var(--g700);transform:translateY(-1px);box-shadow:0 4px 16px rgba(7,104,27,.32)}
 .add-btn:active{transform:scale(.96)}
 .add-btn .arr{transition:transform .2s var(--spring);display:inline-block}
 .add-btn:hover .arr{transform:translateX(3px)}
@@ -385,6 +360,13 @@ main{flex:1;width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
 .form-input:focus,.form-textarea:focus{outline:none;border-color:var(--g500);background:var(--white);box-shadow:0 0 0 3px rgba(29,122,62,.1)}
 .form-input::placeholder,.form-textarea::placeholder{color:#c0b8a8}
 .form-textarea{min-height:clamp(100px,12vh,140px);resize:vertical}
+
+/* ── CHECKOUT ADRESS-GRIDS ───────────────────── */
+.co-row-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.co-row-plz{display:grid;grid-template-columns:1fr 2fr;gap:var(--gap)}
+@media(max-width:500px){
+  .co-row-2,.co-row-plz{grid-template-columns:1fr}
+}
 
 /* ── CONTACT ────────────────────────────────── */
 #contact-page{padding:clamp(2rem,5vh,4rem) 0 2rem}
@@ -440,23 +422,15 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
 
 .page-anim{animation:pageIn .28s var(--ease) both}
 
-/* ── RESPONSIVE BREAKPOINTS ─────────────────── */
-
-/* Large desktop / 4K: cap font sizes, ensure generous spacing */
+/* ── RESPONSIVE ─────────────────────────────── */
 @media(min-width:1800px){
   :root{--pad:clamp(3rem,5vw,6rem)}
   .footer-main{grid-template-columns:1.8fr repeat(3,1fr)}
   #home-features{border-radius:var(--r-2xl)}
 }
-
-/* Standard desktop (1280–1800px) — defaults apply well */
-
-/* 13" laptop / small desktop (900–1280px) */
 @media(max-width:1280px){
   .products-grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
 }
-
-/* Tablet landscape (760–900px) */
 @media(max-width:900px){
   .footer-main{grid-template-columns:1fr 1fr}
   .footer-brand{grid-column:1/-1}
@@ -465,8 +439,6 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
   .feat-item:nth-child(3){border-top:1px solid var(--line);border-right:1px solid var(--line)}
   .feat-item:nth-child(4){border-top:1px solid var(--line);border-right:none}
 }
-
-/* Tablet portrait (600–760px) */
 @media(max-width:760px){
   .contact-grid{grid-template-columns:1fr}
   .products-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
@@ -474,8 +446,6 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
   .products-grid .product-card:first-child .product-img-wrap{height:clamp(175px,35vw,220px)}
   .products-grid .product-card:first-child .product-name{font-size:clamp(1.2rem,3vw,1.5rem)}
 }
-
-/* Mobile (< 600px) */
 @media(max-width:600px){
   :root{--hdr:clamp(56px,10vh,68px)}
   .nav-btn{padding:.38rem .5rem;letter-spacing:.04em}
@@ -489,8 +459,6 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
   .footer-main{grid-template-columns:1fr}
   .footer-brand{grid-column:auto}
 }
-
-/* Small mobile (< 380px) */
 @media(max-width:380px){
   .payment-grid{grid-template-columns:1fr}
   .hero-stats{gap:1.25rem}
@@ -503,7 +471,6 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
 </head>
 <body>
 
-<!-- Floating egg decorations -->
 <div class="egg-bg" aria-hidden="true">🥚</div>
 <div class="egg-bg" aria-hidden="true">🥚</div>
 <div class="egg-bg" aria-hidden="true">🥚</div>
@@ -565,7 +532,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
     </div>
   </section>
 
-  <!-- FEATURES — nur auf Home sichtbar -->
+  <!-- FEATURES -->
   <div id="home-features">
     <div class="feat-item rv d1">
       <div class="feat-icon">🥚</div>
@@ -599,7 +566,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
     </div>
     <div class="contact-grid">
       <div class="form-card rv">
-        <form id="contact-form" action="https://formspree.io/f/FORM_CONTACT_ID" method="POST">
+        <form id="contact-form" action="https://formspree.io/f/xlgdqjby" method="POST">
           <div class="form-group">
             <label class="form-label">Dein Name</label>
             <input name="name" placeholder="Max Mustermann" required class="form-input">
@@ -626,7 +593,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
         <div>
           <p class="ci-label">E-Mail &amp; Telefon</p>
           <p class="ci-value">
-            <a href="mailto:info@savoldi-freiland.ch">info@savoldi-freiland.ch</a>
+            <a href="/cdn-cgi/l/email-protection#c4adaaa2ab84b7a5b2aba8a0ade9a2b6a1ada8a5aaa0eaa7ac"><span class="__cf_email__" data-cfemail="f79e999198b7849681989b939eda9185929e9b969993d9949f">[email&#160;protected]</span></a>
             <a href="tel:+41797977979">+41 79 797 79 79</a>
           </p>
         </div>
@@ -658,19 +625,45 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
     </div>
     <div class="co-card">
       <h3>Ihre Angaben</h3>
-      <form id="checkout-form" action="https://formspree.io/f/FORM_CHECKOUT_ID" method="POST">
-        <div class="form-group">
-          <label class="form-label">Name</label>
-          <input name="name" placeholder="Max Mustermann" required class="form-input">
+      <form id="checkout-form" action="https://formspree.io/f/xlgdqjby" method="POST">
+
+        <!-- Vor- & Nachname -->
+        <div class="co-row-2">
+          <div class="form-group">
+            <label class="form-label">Vorname</label>
+            <input name="vorname" placeholder="Max" required class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nachname</label>
+            <input name="nachname" placeholder="Mustermann" required class="form-input">
+          </div>
         </div>
+
+        <!-- E-Mail -->
         <div class="form-group">
           <label class="form-label">E-Mail</label>
           <input name="email" type="email" placeholder="max@muster.ch" required class="form-input">
         </div>
+
+        <!-- Strasse & Hausnummer -->
         <div class="form-group">
-          <label class="form-label">Lieferadresse</label>
-          <input name="address" placeholder="Strasse Nr, PLZ Ort" required class="form-input">
+          <label class="form-label">Strasse &amp; Hausnummer</label>
+          <input name="strasse" placeholder="Musterstrasse 12" required class="form-input">
         </div>
+
+        <!-- PLZ & Ort -->
+        <div class="co-row-plz">
+          <div class="form-group">
+            <label class="form-label">PLZ</label>
+            <input name="plz" placeholder="5000" required class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ort</label>
+            <input name="ort" placeholder="Aarau" required class="form-input">
+          </div>
+        </div>
+
+        <!-- Zahlungsmethode -->
         <div class="form-group" style="margin-bottom:1.5rem">
           <label class="form-label">Zahlungsmethode</label>
           <div class="payment-grid">
@@ -688,7 +681,10 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
             </label>
           </div>
         </div>
-        <textarea name="order" id="order-field" class="hidden"></textarea>
+
+        <!-- Verstecktes Feld für Bestellinhalt -->
+        <textarea name="bestellung" id="order-field" class="hidden"></textarea>
+
         <button class="btn btn-primary btn-full btn-lg" type="submit">Bestellung abschicken &nbsp;→</button>
       </form>
       <div id="checkout-success" class="success-toast">
@@ -712,7 +708,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
     </div>
     <div class="footer-col">
       <h4>Kontakt</h4>
-      <a href="mailto:info@savoldi-freiland.ch">info@savoldi-freiland.ch</a>
+      <a href="/cdn-cgi/l/email-protection#98f1f6fef7d8ebf9eef7f4fcf1b5feeafdf1f4f9f6fcb6fbf0"><span class="__cf_email__" data-cfemail="e68f888089a6958790898a828fcb8094838f8a878882c8858e">[email&#160;protected]</span></a>
       <a href="tel:+41797977979">+41 79 797 79 79</a>
     </div>
     <div class="footer-col">
@@ -725,53 +721,53 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
   <div class="footer-bottom">© 2026 Savoldi Freiland &nbsp;·&nbsp; realisiert von TwoNet</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 
 /* SCROLL REVEAL */
-const ro=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target)}});
-},{threshold:0.1});
-function attachReveal(){document.querySelectorAll('.rv:not(.on)').forEach(el=>ro.observe(el))}
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
+}, { threshold: 0.1 });
+function attachReveal() { document.querySelectorAll('.rv:not(.on)').forEach(el => ro.observe(el)); }
 attachReveal();
 
 /* DATA */
-let cart=[];
-const products=[
-  {id:4,name:'Eierabo',price:null,onRequest:true,badge:'Beliebt',
-   tag:'Wöchentliches Abonnement',
-   desc:'Jede Woche frische Freilandeier direkt zu Ihnen nach Hause — bequem, regelmässig und ohne Aufwand.',
-   img:'images/eier-abo.jpg'},
-  {id:1,name:'6er-Packung',price:4.50,tag:'Kleiner Haushalt',
-   desc:'Frisch vom Hof — ideal für den täglichen Genuss zu zweit.',
-   img:'images/eier-6er.jpg'},
-  {id:2,name:'10er-Packung',price:7.00,tag:'Familie',
-   desc:'Perfekt für die ganze Familie — frisch, regional und vollwertig.',
-   img:'images/eier-10er.jpg'},
-  {id:3,name:'30er-Packung',price:19.50,badge:'Sparvorteil',badgeAlt:true,tag:'Vorteilspackung',
-   desc:'Grosse Haushalte und Gastronomie — der beste Preis pro Ei.',
-   img:'images/eier-30er.jpg'}
+let cart = [];
+const products = [
+  { id: 4, name: 'Eierabo', price: null, onRequest: true, badge: 'Beliebt',
+    tag: 'Wöchentliches Abonnement',
+    desc: 'Jede Woche frische Freilandeier direkt zu Ihnen nach Hause — bequem, regelmässig und ohne Aufwand.',
+    img: 'images/eier-abo.jpg' },
+  { id: 1, name: '6er-Packung', price: 4.50, tag: 'Kleiner Haushalt',
+    desc: 'Frisch vom Hof — ideal für den täglichen Genuss zu zweit.',
+    img: 'images/eier-6er.jpg' },
+  { id: 2, name: '10er-Packung', price: 7.00, tag: 'Familie',
+    desc: 'Perfekt für die ganze Familie — frisch, regional und vollwertig.',
+    img: 'images/eier-10er.jpg' },
+  { id: 3, name: '30er-Packung', price: 19.50, badge: 'Sparvorteil', badgeAlt: true, tag: 'Vorteilspackung',
+    desc: 'Grosse Haushalte und Gastronomie — der beste Preis pro Ei.',
+    img: 'images/eier-30er.jpg' }
 ];
 
 /* RENDER PRODUCTS */
-const productsEl=document.getElementById('products');
-products.forEach((p,i)=>{
-  const card=document.createElement('div');
-  card.className='product-card rv';
-  card.style.transitionDelay=(i*0.09)+'s';
-  card.innerHTML=`
+const productsEl = document.getElementById('products');
+products.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'product-card rv';
+  card.style.transitionDelay = (i * 0.09) + 's';
+  card.innerHTML = `
     <div class="product-img-wrap">
-      ${p.badge?`<span class="badge ${p.badgeAlt?'badge-alt':''}">${p.badge}</span>`:''}
+      ${p.badge ? `<span class="badge ${p.badgeAlt ? 'badge-alt' : ''}">${p.badge}</span>` : ''}
       <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.src='images/placeholder.jpg';this.onerror=null">
       <div class="product-img-overlay"></div>
     </div>
     <div class="product-body">
-      ${p.tag?`<div class="product-tag">${p.tag}</div>`:''}
+      ${p.tag ? `<div class="product-tag">${p.tag}</div>` : ''}
       <h3 class="product-name">${p.name}</h3>
       <p class="product-desc">${p.desc}</p>
       <div class="product-sep"></div>
-      <div class="product-bottom" style="${p.onRequest?'flex-direction:column;align-items:stretch;gap:.875rem':''}">
-        ${p.onRequest?`
+      <div class="product-bottom" style="${p.onRequest ? 'flex-direction:column;align-items:stretch;gap:.875rem' : ''}">
+        ${p.onRequest ? `
           <div>
             <label class="form-label" style="margin-bottom:.35rem">Grösse wählen</label>
             <select id="size-${p.id}" class="size-select">
@@ -781,7 +777,7 @@ products.forEach((p,i)=>{
           <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem">
             <span class="on-request-label">Preis auf Anfrage</span>
             <button class="add-btn" onclick="addAbo(${p.id})">Abo anfragen <span class="arr">→</span></button>
-          </div>`:`
+          </div>` : `
           <div>
             <div class="product-price">CHF ${p.price.toFixed(2)}</div>
             <div class="product-price-unit">pro Packung</div>
@@ -793,71 +789,75 @@ products.forEach((p,i)=>{
 });
 
 /* NAVIGATION */
-const PAGES=['home','shop','contact','checkout'];
-const homeFeatures=document.getElementById('home-features');
+const PAGES = ['home', 'shop', 'contact', 'checkout'];
+const homeFeatures = document.getElementById('home-features');
 
-function showPage(name){
-  PAGES.forEach(p=>{
-    document.getElementById(p+'-page').classList.add('hidden');
-    const nb=document.getElementById('nav-'+p);
-    if(nb)nb.classList.remove('active');
+function showPage(name) {
+  PAGES.forEach(p => {
+    document.getElementById(p + '-page').classList.add('hidden');
+    const nb = document.getElementById('nav-' + p);
+    if (nb) nb.classList.remove('active');
   });
-  const sec=document.getElementById(name+'-page');
+  const sec = document.getElementById(name + '-page');
   sec.classList.remove('hidden');
   sec.classList.add('page-anim');
-  sec.addEventListener('animationend',()=>sec.classList.remove('page-anim'),{once:true});
-  const nb=document.getElementById('nav-'+name);
-  if(nb)nb.classList.add('active');
-  homeFeatures.style.display=(name==='home')?'grid':'none';
-  window.scrollTo({top:0,behavior:'smooth'});
-  setTimeout(attachReveal,60);
+  sec.addEventListener('animationend', () => sec.classList.remove('page-anim'), { once: true });
+  const nb = document.getElementById('nav-' + name);
+  if (nb) nb.classList.add('active');
+  homeFeatures.style.display = (name === 'home') ? 'grid' : 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(attachReveal, 60);
 }
-homeFeatures.style.display='grid';
+homeFeatures.style.display = 'grid';
 
 /* CART */
-const cartEl=document.getElementById('cart');
-const cartOverlay=document.getElementById('cart-overlay');
-let cartOpen=false;
-function toggleCart(){
-  cartOpen=!cartOpen;
-  cartEl.classList.toggle('open',cartOpen);
-  cartOverlay.classList.toggle('show',cartOpen);
-  document.body.style.overflow=cartOpen?'hidden':'';
-}
-function addToCart(id){
-  const p=products.find(x=>x.id===id);
-  const e=cart.find(x=>x.id===id&&!x.size);
-  e?e.qty++:cart.push({...p,qty:1});
-  renderCart();bump();if(!cartOpen)toggleCart();
-}
-function addAbo(id){
-  const size=document.getElementById('size-'+id).value;
-  cart.push({id,name:'Eierabo',size,qty:1,price:null});
-  renderCart();bump();if(!cartOpen)toggleCart();
-}
-function changeQty(i,d){cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);renderCart()}
-function removeItem(i){cart.splice(i,1);renderCart()}
-function bump(){const el=document.getElementById('cart-count');el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump')}
+const cartEl = document.getElementById('cart');
+const cartOverlay = document.getElementById('cart-overlay');
+let cartOpen = false;
 
-function renderCart(){
-  const el=document.getElementById('cart-items');
-  el.innerHTML='';let total=0;
-  if(!cart.length){
-    el.innerHTML=`<div class="cart-empty">
+function toggleCart() {
+  cartOpen = !cartOpen;
+  cartEl.classList.toggle('open', cartOpen);
+  cartOverlay.classList.toggle('show', cartOpen);
+  document.body.style.overflow = cartOpen ? 'hidden' : '';
+}
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  const e = cart.find(x => x.id === id && !x.size);
+  e ? e.qty++ : cart.push({ ...p, qty: 1 });
+  renderCart(); bump(); if (!cartOpen) toggleCart();
+}
+function addAbo(id) {
+  const size = document.getElementById('size-' + id).value;
+  cart.push({ id, name: 'Eierabo', size, qty: 1, price: null });
+  renderCart(); bump(); if (!cartOpen) toggleCart();
+}
+function changeQty(i, d) { cart[i].qty += d; if (cart[i].qty <= 0) cart.splice(i, 1); renderCart(); }
+function removeItem(i) { cart.splice(i, 1); renderCart(); }
+function bump() {
+  const el = document.getElementById('cart-count');
+  el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+}
+
+function renderCart() {
+  const el = document.getElementById('cart-items');
+  el.innerHTML = ''; let total = 0;
+  if (!cart.length) {
+    el.innerHTML = `<div class="cart-empty">
       <div class="cart-empty-icon">🥚</div>
       <p>Ihr Warenkorb ist noch leer.</p>
       <button class="btn btn-outline" onclick="toggleCart();showPage('shop')" style="margin-top:.75rem">Zum Shop</button>
     </div>`;
-  }else{
-    cart.forEach((item,i)=>{
-      if(item.price)total+=item.price*item.qty;
-      const div=document.createElement('div');
-      div.className='cart-item';
-      div.innerHTML=`
+  } else {
+    cart.forEach((item, i) => {
+      if (item.price) total += item.price * item.qty;
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
         <div class="cart-item-name">${item.name}</div>
         ${item.size
-          ?`<span class="cart-item-sub">Grösse ${item.size} · wöchentlich</span>`
-          :`<div class="cart-item-row">
+          ? `<span class="cart-item-sub">Grösse ${item.size} · wöchentlich</span>`
+          : `<div class="cart-item-row">
               <div class="qty-ctrl">
                 <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
                 <span class="qty-num">${item.qty}</span>
@@ -867,60 +867,53 @@ function renderCart(){
             </div>`}
         <div class="cart-item-price">
           ${item.price
-            ?`CHF ${(item.price*item.qty).toFixed(2)}`
-            :`<span style="font-weight:500;color:var(--muted)">Preis auf Anfrage</span>`}
+            ? `CHF ${(item.price * item.qty).toFixed(2)}`
+            : `<span style="font-weight:500;color:var(--muted)">Preis auf Anfrage</span>`}
         </div>`;
       el.appendChild(div);
     });
   }
-  document.getElementById('cart-total').textContent=total.toFixed(2);
-  document.getElementById('cart-count').textContent=cart.reduce((a,b)=>a+b.qty,0);
+  document.getElementById('cart-total').textContent = total.toFixed(2);
+  document.getElementById('cart-count').textContent = cart.reduce((a, b) => a + b.qty, 0);
 }
 
 /* CHECKOUT */
-function checkout(){
-  if(cartOpen)toggleCart();
-  const sumEl=document.getElementById('checkout-summary');
-  sumEl.innerHTML='';let total=0;
-  cart.forEach(item=>{
-    if(item.price)total+=item.price*item.qty;
-    const row=document.createElement('div');
-    row.className='summary-row';
-    row.innerHTML=`
-      <span class="summary-row-name">${item.name}${item.size?` (${item.size})`:`&nbsp;×&nbsp;${item.qty}`}</span>
-      <span class="summary-row-price">${item.price?`CHF ${(item.price*item.qty).toFixed(2)}`:'Auf Anfrage'}</span>`;
+function checkout() {
+  if (cartOpen) toggleCart();
+  const sumEl = document.getElementById('checkout-summary');
+  sumEl.innerHTML = ''; let total = 0;
+  cart.forEach(item => {
+    if (item.price) total += item.price * item.qty;
+    const row = document.createElement('div');
+    row.className = 'summary-row';
+    row.innerHTML = `
+      <span class="summary-row-name">${item.name}${item.size ? ` (${item.size})` : `&nbsp;×&nbsp;${item.qty}`}</span>
+      <span class="summary-row-price">${item.price ? `CHF ${(item.price * item.qty).toFixed(2)}` : 'Auf Anfrage'}</span>`;
     sumEl.appendChild(row);
   });
-  document.getElementById('checkout-total').textContent=total.toFixed(2);
-  document.getElementById('order-field').value=cart.map(i=>
-    `${i.name}${i.size?' ('+i.size+')':' x'+i.qty}: ${i.price?'CHF '+(i.price*i.qty).toFixed(2):'Anfrage'}`
+  document.getElementById('checkout-total').textContent = total.toFixed(2);
+  document.getElementById('order-field').value = cart.map(i =>
+    `${i.name}${i.size ? ' (' + i.size + ')' : ' x' + i.qty}: ${i.price ? 'CHF ' + (i.price * i.qty).toFixed(2) : 'Anfrage'}`
   ).join('\n');
   showPage('checkout');
 }
 
 /* FORM HANDLERS */
-document.getElementById('contact-form').addEventListener('submit',async function(e){
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const btn=this.querySelector('button[type=submit]'),orig=btn.innerHTML;
-  btn.disabled=true;btn.innerHTML='Wird gesendet…';
-  try{
-    const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
-    if(res.ok){this.reset();document.getElementById('contact-success').classList.add('show')}
-  }catch(_){}
-  btn.disabled=false;btn.innerHTML=orig;
-});
-document.getElementById('checkout-form').addEventListener('submit',async function(e){
-  e.preventDefault();
-  const btn=this.querySelector('button[type=submit]'),orig=btn.innerHTML;
-  btn.disabled=true;btn.innerHTML='Wird gesendet…';
-  try{
-    const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
-    if(res.ok){this.reset();cart=[];renderCart();document.getElementById('checkout-success').classList.add('show')}
-  }catch(_){}
-  btn.disabled=false;btn.innerHTML=orig;
+  const btn = this.querySelector('button[type=submit]'), orig = btn.innerHTML;
+  btn.disabled = true; btn.innerHTML = 'Wird gesendet…';
+  try {
+    const res = await fetch(this.action, { method: 'POST', body: new FormData(this), headers: { Accept: 'application/json' } });
+    if (res.ok) {
+      this.reset();
+      window.location.href = 'danke.html';
+    }
+  } catch(_) {}
+  btn.disabled = false; btn.innerHTML = orig;
 });
 
-renderCart();
-</script>
-</body>
-</html>
+document.getElementById('checkout-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('button[type=submit]'), orig = btn.innerHTML;
+  btn.disabled = true; btn.in
