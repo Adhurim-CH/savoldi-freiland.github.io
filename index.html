@@ -599,7 +599,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
     </div>
     <div class="contact-grid">
       <div class="form-card rv">
-        <form id="contact-form" action="https://formspree.io/f/FORM_CONTACT_ID" method="POST">
+        <form id="contact-form" action="https://formspree.io/f/xlgdqjby" method="POST">
           <div class="form-group">
             <label class="form-label">Dein Name</label>
             <input name="name" placeholder="Max Mustermann" required class="form-input">
@@ -658,7 +658,7 @@ footer{background:var(--g700);margin-top:clamp(3rem,8vh,6rem)}
     </div>
     <div class="co-card">
       <h3>Ihre Angaben</h3>
-      <form id="checkout-form" action="https://formspree.io/f/FORM_CHECKOUT_ID" method="POST">
+      <form id="checkout-form" action="https://formspree.io/f/xlgdqjby" method="POST">
         <div class="form-group">
           <label class="form-label">Name</label>
           <input name="name" placeholder="Max Mustermann" required class="form-input">
@@ -905,7 +905,7 @@ document.getElementById('contact-form').addEventListener('submit',async function
   btn.disabled=true;btn.innerHTML='Wird gesendet…';
   try{
     const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
-    if(res.ok){this.reset();document.getElementById('contact-success').classList.add('show')}
+    if(res.ok){ window.location.href = 'danke.html'; }
   }catch(_){}
   btn.disabled=false;btn.innerHTML=orig;
 });
